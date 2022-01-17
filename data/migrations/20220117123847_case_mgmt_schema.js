@@ -74,6 +74,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists('education_histories')
     .dropTableIfExists('email_addresses')
     .dropTableIfExists('phone_numbers')
     .dropTableIfExists('ethnicities')
