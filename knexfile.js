@@ -1,44 +1,43 @@
 // Update with your config settings.
 
 module.exports = {
-
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './dev.sqlite3'
-    }
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' },
   },
 
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+  test: {
+    client: 'pg',
+    connection: process.env.TEST_DATABASE_URL,
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' },
+    pool: { min: 0, max: 5 },
+  },
+
+  ci: {
+    client: 'pg',
+    connection: process.env.CI_DATABASE_URL,
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' },
+    pool: { min: 0, max: 5 },
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      connectionString: process.env.DATABASE_URL,
+      ssl: true,
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' },
+  },
 
+  staging: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    migrations: { directory: './data/migrations' },
+    seeds: { directory: './data/seeds' },
+  },
 };
