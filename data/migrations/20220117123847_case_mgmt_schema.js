@@ -1,5 +1,6 @@
 exports.up = function (knex) {
-  return knex.schema.createTable('locations', (t) => {
+  return knex.schema
+  .createTable('locations', (t) => {
     t.increments('ID').notNullable().unique().primary();
     t.integer('household_id').notNullable();
     t.string('type');
@@ -12,9 +13,16 @@ exports.up = function (knex) {
     t.string('zip');
     t.timestamp('deleted_at');
     t.timestamp('created_at');
-  });
+  })
+  .createTable('households', (t) => {
+    t.increments('ID').notNullable().unique().primary();
+    t.string('name').notNullable();
+    t.timestamp('created_at');
+  })
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('locations');
+  return knex.schema
+    .dropTableIfExists('households')
+    .dropTableIfExists('locations');
 };
