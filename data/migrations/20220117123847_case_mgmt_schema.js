@@ -19,10 +19,24 @@ exports.up = function (knex) {
     t.string('name').notNullable();
     t.timestamp('created_at');
   })
+  .createTable('clients', (t) => {
+    t.increments('ID').notNullable().unique().primary();
+    t.integer('household_id').notNullable();
+    t.string('first_name').notNullable();
+    t.string('last_name').notNullable();
+    t.string('ssn').notNullable();
+    t.boolean('is_hoh');
+    t.string('relation');
+    t.string('education_level');
+    t.integer('gender_id');
+    t.integer('ethnicity_id');
+    t.timestamp('created_at');
+  })
 };
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists('clients')
     .dropTableIfExists('households')
-    .dropTableIfExists('locations');
+    .dropTableIfExists('locations')
 };
