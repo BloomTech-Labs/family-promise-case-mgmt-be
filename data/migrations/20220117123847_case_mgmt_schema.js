@@ -58,7 +58,7 @@ exports.up = function (knex) {
       t.integer('client_id').notNullable();
       t.string('email').notNullable().unique();
       t.string('email_type');
-      t.booelan('allow_sms');
+      t.boolean('allow_sms');
       t.timestamp('deleted_at').defaultTo(knex.fn.now());
       t.timestamp('created_at').defaultTo(knex.fn.now());
     })
