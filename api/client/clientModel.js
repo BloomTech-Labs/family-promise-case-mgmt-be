@@ -1,11 +1,6 @@
 const db = require('../../data/db-config')
 
-const faker = [{
-    name: 'bob',
-    addres: 'bob123',
-    email: 'bob@bob',
-    id: '96'
-}]
+
 // meed help mocking this data for future reference
 
 const add = async(newClient) => {
@@ -19,7 +14,7 @@ const findAll = () => {
     return db('clients')
 }
 
-const findById = (id) => {
+const findById = async (id) => {
     return db('clients')
     .where({id})
     .first()

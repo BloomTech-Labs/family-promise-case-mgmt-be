@@ -17,7 +17,7 @@ router.get('/:id', (req, res, next) => {
     Clients.findById(req.params.id)
     .then(clients => {
         if(clients) {
-            res.status.json({clients})
+            res.status(200).json({clients})
         } else{
             res.status(404).json({
                 message: 'Client could not be found'
