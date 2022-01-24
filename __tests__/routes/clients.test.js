@@ -62,6 +62,8 @@ describe('Post /clients', () => {
       name: 'Yuske Yurameshi',
       email: 'yuske@example.com',
     }
+
+
     Clients.findById.mockResolvedValue(undefined);
     Clients.add.mockResolvedValue([
       Object.assign({id: '55'}, profile)
@@ -91,7 +93,6 @@ describe('put /client', () => {
 describe('delete, /delete', () => {
   it('should delete return 404 swhen called', async() => {
     const res = await request(server).delete('/clients/4')
-    Clients.remove.mockResolvedValue()
 
 
     expect(res.status).toBe(404)
