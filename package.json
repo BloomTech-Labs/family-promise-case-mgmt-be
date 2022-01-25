@@ -15,7 +15,7 @@
     "coverage": "CI=true npx jest --coverage --detectOpenHandles --forceExit"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --fix src/",
+    "*.{js,jsx}": "eslint --fix api/",
     "*.{js,jsx,json,css,md}": "prettier --write"
   },
   "husky": {
