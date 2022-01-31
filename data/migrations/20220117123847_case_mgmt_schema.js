@@ -18,19 +18,20 @@ exports.up = function (knex) {
       t.increments('ID').notNullable().unique().primary();
       t.string('name').notNullable();
       t.string('created_at').defaultTo(knex.fn.now());
+      t.integer('location_id').references('locations.ID');
     })
     .createTable('clients', (t) => {
       t.increments('ID').notNullable().unique().primary();
-      t.integer('household_id').notNullable();
+      t.integer('household_id').references('households.ID')
       t.string('first_name').notNullable();
       t.string('last_name').notNullable();
       t.string('ssn').notNullable();
       t.boolean('is_hoh');
       t.string('relation');
       t.string('education_level');
-      t.integer('gender_id');
-      t.integer('race_id');
-      t.integer('ethnicity_id');
+      t.integer('gender_id').references('genders.ID');
+      t.integer('race_id').references('races.ID')
+      t.integer('ethnicity_id').references('ethnicities.ID')
       t.string('created_at').defaultTo(knex.fn.now());
     })
     .createTable('genders', (t) => {
@@ -47,7 +48,7 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (t) => {
       t.increments('ID').notNullable().unique().primary();
-      t.integer('client_id').notNullable();
+      t.integer('client_id').references('clients.ID');
       t.string('number').notNullable().unique();
       t.string('phone_type');
       t.string('deleted_at').defaultTo(knex.fn.now());
@@ -55,7 +56,7 @@ exports.up = function (knex) {
     })
     .createTable('email_addresses', (t) => {
       t.increments('ID').notNullable().unique().primary();
-      t.integer('client_id').notNullable();
+      t.integer('client_id').references('clients.ID');
       t.string('email').notNullable().unique();
       t.string('email_type');
       t.boolean('allow_sms');
@@ -64,7 +65,7 @@ exports.up = function (knex) {
     })
     .createTable('education_histories', (t) => {
       t.increments('ID').notNullable().unique().primary();
-      t.integer('client_id').notNullable();
+      t.integer('client_id').references('clients.ID');
       t.string('school_name');
       t.string('level');
       t.string('start_date');
