@@ -5,5 +5,6 @@ exports.seed = function (knex) {
     { name: 'white' },
     { name: 'white' },
     { name: 'white' },
+    { name: 'white' },
   ]);
 };

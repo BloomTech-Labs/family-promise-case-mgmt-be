@@ -6,7 +6,7 @@
 
 ### Schema
 
-Currently being finalized. 
+Currently being finalized.
 
 ## Status
 

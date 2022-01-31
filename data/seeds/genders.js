@@ -5,5 +5,6 @@ exports.seed = function (knex) {
     { name: 'male' },
     { name: 'male' },
     { name: 'male' },
+    { name: 'female' },
   ]);
 };
