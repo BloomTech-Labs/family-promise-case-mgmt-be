@@ -13,7 +13,11 @@ const findAll = () => {
 };
 
 const findById = async (id) => {
-  return db('clients').where({ id }).first();
+  const client = db('clients').where({ id }).first();
+
+  client.gender = db('genders').where(client.gender_id, 'genders.id').first();
+
+  return client;
 };
 
 const remove = (id) => {

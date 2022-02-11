@@ -21,6 +21,7 @@ exports.up = function (knex) {
     })
     .createTable('clients', (t) => {
       t.increments().notNullable().unique().primary();
+      // how does this get inputted?
       t.integer('household_id').notNullable();
       t.string('first_name').notNullable();
       t.string('last_name').notNullable();
@@ -28,6 +29,7 @@ exports.up = function (knex) {
       t.boolean('is_hoh');
       t.string('relation');
       t.string('education_level');
+      // still need to add the primary keys to these?
       t.integer('gender_id');
       t.integer('race_id');
       t.integer('ethnicity_id');
