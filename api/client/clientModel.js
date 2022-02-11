@@ -3,7 +3,7 @@ const db = require('../../data/db-config');
 // meed help mocking this data for future reference
 
 const add = async (newClient) => {
-  const [id] = await db('clients').insert(newClient);
+  const [id] = await db('clients').returning('id').insert(newClient);
 
   return findById(id);
 };
