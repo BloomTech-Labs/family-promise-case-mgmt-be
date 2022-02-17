@@ -2,6 +2,7 @@ const db = require('../../data/db-config');
 
 function get() {
   return db('client_notes');
+  //   add a descending order here
 }
 
 function getById(id) {
