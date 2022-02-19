@@ -8,7 +8,7 @@ exports.up = function (knex) {
         .unique()
         .primary()
         .defaultTo(knex.raw('uuid_generate_v4()'));
-      table.string('client_id');
+      table.integer('client_id');
       table.string('source_view');
       table.text('message').notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
