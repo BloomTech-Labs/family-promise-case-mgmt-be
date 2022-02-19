@@ -12,9 +12,10 @@ const findAll = () => {
   return db('clients');
 };
 
-const findById = async (id) => {
+const findById = (id) => {
   const client = db('clients').where({ id }).first();
 
+  // client.gender not being used, future query for when need cascading table updates
   client.gender = db('genders').where(client.gender_id, 'genders.id').first();
 
   return client;
