@@ -9,9 +9,9 @@ function getById(id) {
   return db('client_notes').where({ id }).first();
 }
 
-function insert() {
+function insert(note) {
   return db('client_notes')
-    .insert('notes')
+    .insert(note)
     .then((id) => {
       return getById(id[0]);
     });
