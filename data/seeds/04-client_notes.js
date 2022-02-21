@@ -1,9 +1,7 @@
 exports.seed = function (knex) {
-  // Deletes ALL existing entries
   return knex('client_notes')
     .del()
     .then(function () {
-      // Inserts seed entries
       return knex('client_notes').insert([
         {
           client_id: 1,
