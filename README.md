@@ -6,7 +6,14 @@
 
 ### Schema
 
-Currently being finalized. 
+> Never edit an existing migration file. These files are only run once in
+> production and not meant to be altered.
+
+A visual of the schema can be seen [here](https://dbdiagram.io/d/61e0e9de4bca010ae988eef8).
+
+The definition file for that visual is located in the data folder in the
+dbdiagram.dbml file. You can load this file in your own account to visualize
+and make changes. All changes must be approved by staff.
 
 ## Status
 
