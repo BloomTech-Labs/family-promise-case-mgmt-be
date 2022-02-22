@@ -82,7 +82,7 @@ exports.up = function (knex) {
     })
     .createTable('finances', (tbl) => {
       tbl.increments().notNullable().unique();
-      tbl.string('type_of_debt');
+      //  tbl.string('type_of_debt'); double check to Jake
       tbl.boolean('history_of_evictions');
       tbl.boolean('history_of_landlord_debt');
       tbl.boolean('history_of_criminal_activity');
