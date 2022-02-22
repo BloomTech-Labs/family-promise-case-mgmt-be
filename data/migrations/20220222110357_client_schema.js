@@ -2,24 +2,6 @@
 
 exports.up = function (knex) {
   return knex.schema
-    .createTable('clients', (tbl) => {
-      tbl.increments().notNullable().unique();
-      tbl.integer('household_id').notNullable();
-      tbl.string('first_name').notNullable();
-      tbl.string('last_name').notNullable();
-      tbl.string('ssn', 9).notNullable();
-      tbl.boolean('is_hoh');
-      tbl.string('relation');
-      tbl.string('education_level');
-      tbl.integer('gender_id');
-      tbl.integer('race_id');
-      tbl.integer('ethnicity_id');
-      tbl.integer('finances_id');
-      tbl.integer('insurance_id');
-      tbl.integer('documents_id');
-      tbl.integer('goals_id');
-      tbl.string('created_at').defaultTo(knex.fn.now());
-    })
     .createTable('locations', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.integer('household_id').notNullable();
@@ -37,6 +19,25 @@ exports.up = function (knex) {
     .createTable('households', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable();
+      tbl.string('created_at').defaultTo(knex.fn.now());
+    })
+
+    .createTable('clients', (tbl) => {
+      tbl.increments().notNullable().unique();
+      tbl.integer('household_id').notNullable();
+      tbl.string('first_name').notNullable();
+      tbl.string('last_name').notNullable();
+      tbl.string('ssn', 9).notNullable();
+      tbl.boolean('is_hoh');
+      tbl.string('relation');
+      tbl.string('education_level');
+      tbl.integer('gender_id');
+      tbl.integer('race_id');
+      tbl.integer('ethnicity_id');
+      tbl.integer('finances_id');
+      tbl.integer('insurance_id');
+      tbl.integer('documents_id');
+      tbl.integer('goals_id');
       tbl.string('created_at').defaultTo(knex.fn.now());
     })
 
@@ -127,15 +128,24 @@ exports.up = function (knex) {
       tbl.boolean('can_text_apartment_listings');
       tbl.boolean('can_text_career_fairs');
       tbl.boolean('can_add_referrals');
-      tbl.string('referrals_name', 30);
+      tbl.string('referrals_name', 30).notNullable().unique();
       tbl.string('referrals_address');
       tbl.string('referrals_cell');
       tbl.string('referrals_home');
-      tbl.string('referrals_email', 35);
+      tbl.string('referrals_email', 35).notNullable().unique();
       //   tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.string('goal_statement');
+      tbl.stting('goal_steps');
+      tbl.date('goal_target_date');
+      tbl.string('cm_task');
+      tbl.timestamp('date_archived').defaultTo(knex.fn.now());
+      tbl.string('notes');
+      tbl.string('client_strength');
+      tbl.string('client_obstacle');
+      tbl.string('progress_summary');
     });
 };
 
@@ -151,7 +161,7 @@ exports.down = function (knex) {
     .dropTableIfExists('ethnicities')
     .dropTableIfExists('races')
     .dropTableIfExists('genders')
+    .dropTableIfExists('clients')
     .dropTableIfExists('households')
-    .dropTableIfExists('locations')
-    .dropTableIfExists('clients');
+    .dropTableIfExists('locations');
 };
