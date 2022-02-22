@@ -7,7 +7,7 @@ exports.up = function (knex) {
       tbl.integer('household_id').notNullable();
       tbl.string('first_name').notNullable();
       tbl.string('last_name').notNullable();
-      tbl.string('ssn').notNullable();
+      tbl.string('ssn', 9).notNullable();
       tbl.boolean('is_hoh');
       tbl.string('relation');
       tbl.string('education_level');
@@ -56,7 +56,7 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (tbl) => {
       tbl.increments().notNullable().unique();
-      tbl.string('number').notNullable().unique();
+      tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
       tbl.string('deleted_at').defaultTo(knex.fn.now());
       tbl.string('created_at').defaultTo(knex.fn.now());
@@ -75,13 +75,83 @@ exports.up = function (knex) {
       tbl.string('level');
       tbl.string('start_date');
       tbl.string('end_date');
+    })
+    .createTable('finances', (tbl) => {
+      tbl.increments().notNullable().unique();
+      tbl.string('type_of_debt');
+      tbl.boolean('history_of_evictions');
+      tbl.boolean('history_of_landlord_debt');
+      tbl.boolean('history_of_criminal_activity');
+      tbl.boolean('history_of_poor_credit');
+      tbl.boolean('rental_history');
+      tbl.decimal('amount_of_student_debt');
+      tbl.decimal('amount_of_medical_debt');
+      tbl.decimal('amount_of_credit_card_debt');
+      tbl.decimal('amount_of_auto_debt');
+    })
+    .createTable('insurance', (tbl) => {
+      tbl.increments().notNullable().unique();
+      tbl.string('medicare_number', 25);
+      tbl.datetime('medicare_effective_date').defaultTo(knex.fn.now());
+      tbl.string('medicaid_number', 25);
+      tbl.datetime('medicaid_effective_date').defaultTo(knex.fn.now());
+      tbl.string('private_insurance_company');
+      tbl.integer('private_insurance_group_number');
+      tbl.string('private_insurance_subscriber_number');
+      tbl.datetime('private_insurance_effective_date').defaultTo(knex.fn.now());
+      tbl
+        .datetime('private_insurance_expiration_date ')
+        .defaultTo(knex.fn.now());
+      //tbl.string('employer_occupation')
+      tbl.string('other_coverage');
+      tbl.string('other_agencies');
+    })
+    .createTable('documents', (tbl) => {
+      tbl.increments().notNullable().unique();
+      tbl.boolean('completed_hfca');
+      tbl.boolean('valid_driver');
+      tbl.boolean('valid_social');
+      tbl.boolean('dshs_wic_tanf_snap');
+      tbl.boolean('responsible_renters_course');
+      tbl.boolean('birth_cert_for_children');
+      tbl.boolean('child_enrolled_school');
+      tbl.boolean('childcare');
+      tbl.boolean('food_assistance');
+      tbl.boolean('clothing_assistance');
+      tbl.boolean('counseling_services');
+      tbl.boolean('addiction_resources');
+      tbl.boolean('mentor_programs');
+      tbl.boolean('youth_services');
+      tbl.boolean('budgeting');
+      tbl.boolean('can_text_employment_opportunities');
+      tbl.boolean('can_text_apartment_listings');
+      tbl.boolean('can_text_career_fairs');
+      tbl.boolean('can_add_referrals');
+      tbl.string('referrals_name', 30);
+      tbl.string('referrals_address');
+      tbl.string('referrals_cell');
+      tbl.string('referrals_home');
+      tbl.string('referrals_email', 35);
+      //   tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
+    })
+    .createTable('goals', (tbl) => {
+      tbl.increments().notNullable().unique();
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('clients')
-    .dropTableIfExists('locations')
+    .dropTableIfExists('goals')
+    .dropTableIfExists('documents')
+    .dropTableIfExists('insurance')
+    .dropTableIfExists('finances')
+    .dropTableIfExists('education_histories')
+    .dropTableIfExists('email_addresses')
+    .dropTableIfExists('phone_numbers')
+    .dropTableIfExists('ethnicities')
+    .dropTableIfExists('races')
+    .dropTableIfExists('genders')
     .dropTableIfExists('households')
-    .dropTableIfExists('gender');
+    .dropTableIfExists('locations')
+    .dropTableIfExists('clients');
 };
