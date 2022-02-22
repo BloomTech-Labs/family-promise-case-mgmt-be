@@ -22,6 +22,10 @@ tablegroup households {
   genders
   races
   ethnicities
+  finances
+  insurance
+  documents
+  goals
 }
   
 Table households {
@@ -57,6 +61,10 @@ Table clients {
   gender_id uuid [ref: > genders.id]
   race_id uuid [ref: > races.id]
   ethnicity_id uuid [ref: > ethnicities.id]
+  finances_id uuid [ref: > finances.id]
+  insurance_id uuid [ref: > insurance.id]
+  documents_id uuid [ref: > documents.id]
+  goals_id uuid [ref: > goals.id]
   created_at datetime // with TZ
 }
 
@@ -67,6 +75,7 @@ table client_notes {
   message text
   created_by varchar [ref: > profiles.id]
   created_at datetime // with TZ
+  deleted_at datetime 
 }
 
 table phone_numbers {
@@ -110,4 +119,85 @@ table races {
 table ethnicities {
   id uuid [primary key]
   name varchar
+}
+
+table employment_histories {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  currently_employed boolean
+  skill_certifications varchar
+}
+
+table finances {
+  id uuid [primary key]
+  type_of_debt varchar
+  history_of_evictions boolean
+  history_of_landlord_debt boolean
+  history_of_criminal_activity boolean
+  history_of_poor_credit boolean
+  rental_history boolean
+  amount_of_student_debt money // float 2/currency format
+  amount_of_medical_debt money
+  amount_of_credit_card_debt money
+  amount_of_auto_debt money
+}
+
+table insurance {
+  id uuid [primary key]
+  medicare_number varchar(25)
+  medicare_effective_date datetime
+  medicaid_number varchar(25)
+  medicaid_effective_date datetime
+  medicaid_expiration_date datetime
+  private_insurance_company varchar
+  private_insurance_group_number number
+  private_insurance_subscriber_number varchar
+  private_insurance_effective_date datetime
+  private_insurance_expiration_date datetime
+  // employer_occupation varchar // ??
+  other_coverage varchar
+  other_agencies varchar
+}
+
+table documents {
+  id uuid [primary key]
+  completed_hfca boolean 
+  valid_driver boolean
+  valid_social boolean
+  dshs_wic_tanf_snap boolean
+  responsible_renters_course boolean
+  birth_cert_for_children boolean
+  child_enrolled_school boolean
+  childcare boolean
+  food_assistance boolean
+  clothing_assistance boolean 
+  counseling_services boolean 
+  addiction_resources boolean 
+  mentor_programs boolean
+  youth_services boolean
+  budgeting boolean 
+  can_text_employment_opportunities boolean 
+  can_text_apartment_listings boolean 
+  can_text_career_fairs boolean
+  can_add_referrals boolean
+  referrals_name varchar(30) 
+  referrals_address varchar
+  referrals_cell varchar
+  referrals_home varchar
+  referrals_work varchar
+  referrals_email varchar(35)
+  first_meeting_date datetime // odd field on a document
+  }
+
+table goals {
+  id uuid [primary key]
+  goal_statement varchar
+  goal_steps varchar
+  goal_target_date date
+  cm_task varchar 
+  date_archived timestamp
+  notes varchar
+  client_strengths varchar
+  client_obstacles varchar
+  progress_summary varchar
 }
