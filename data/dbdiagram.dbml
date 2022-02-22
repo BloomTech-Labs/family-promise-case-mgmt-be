@@ -1,0 +1,113 @@
+Project fp_casemgmt {
+  database_type: 'PostgreSQL'
+  Note: 'Family Promise Case Management'
+}
+
+Table profiles {
+  id varchar [primary key]
+  name varchar
+  email varchar
+  role varchar
+  created_at datetime // with TZ
+}
+
+tablegroup households {
+  households
+  locations
+  clients
+  client_notes
+  education_histories
+  phone_numbers
+  email_addresses
+  genders
+  races
+  ethnicities
+}
+  
+Table households {
+  id bigint [primary key]
+  name varchar
+  created_at datetime // with TZ
+}
+
+table locations {
+  id uuid
+  household_id uuid [ref: > households.id]
+  type varchar
+  name varchar
+  latlong varchar
+  address1 varchar
+  address2 varchar
+  city varchar
+  state varchar
+  zip varchar
+  deleted_at datetime // with TZ
+  created_at datetime // with TZ
+}
+
+Table clients {
+  id uuid [primary key]
+  household_id bigint [ref: > households.id]
+  first_name varchar
+  last_name varchar
+  ssn varchar(9) // no dashes
+  is_hoh boolean // head of household?
+  relation varchar // relation in HOH, child, spouse, grandson
+  education_level varchar
+  gender_id uuid [ref: > genders.id]
+  race_id uuid [ref: > races.id]
+  ethnicity_id uuid [ref: > ethnicities.id]
+  created_at datetime // with TZ
+}
+
+table client_notes {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  source_view varchar // screen note added from
+  message text
+  created_by varchar [ref: > profiles.id]
+  created_at datetime // with TZ
+}
+
+table phone_numbers {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  number varchar(10) // no markers/dashes
+  phone_type varchar
+  deleted_at datetime // with TZ
+  created_at datetime // with TZ
+}
+
+table email_addresses {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  email varchar // no markers/dashes
+  email_type varchar
+  allow_sms boolean
+  deleted_at datetime // with TZ
+  created_at datetime // with TZ
+}
+
+table education_histories {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  school_name varchar
+  level varchar
+  start_date datetime // with TZ
+  end_date datetime // with TZ
+}
+
+table genders {
+  id uuid [primary key]
+  name varchar
+}
+
+table races {
+  id uuid [primary key]
+  name varchar
+}
+
+table ethnicities {
+  id uuid [primary key]
+  name varchar
+}
