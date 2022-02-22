@@ -41,7 +41,7 @@ exports.up = function (knex) {
       tbl.string('created_at').defaultTo(knex.fn.now());
     })
 
-    .createTable('gender', (tbl) => {
+    .createTable('genders', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable().unique();
     })
@@ -57,6 +57,7 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (tbl) => {
       tbl.increments().notNullable().unique();
+      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
       tbl.string('deleted_at').defaultTo(knex.fn.now());
@@ -64,6 +65,7 @@ exports.up = function (knex) {
     })
     .createTable('email_addresses', (tbl) => {
       tbl.increments().notNullable().unique();
+      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('email').notNullable().unique();
       tbl.string('email_type');
       tbl.boolean('allow_sms');
@@ -72,6 +74,7 @@ exports.up = function (knex) {
     })
     .createTable('education_histories', (tbl) => {
       tbl.increments().notNullable().unique();
+      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('school_name');
       tbl.string('level');
       tbl.string('start_date');
@@ -132,13 +135,14 @@ exports.up = function (knex) {
       tbl.string('referrals_address');
       tbl.string('referrals_cell');
       tbl.string('referrals_home');
+      tbl.string('referrals_work');
       tbl.string('referrals_email', 35).notNullable().unique();
       //   tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.string('goal_statement');
-      tbl.stting('goal_steps');
+      tbl.string('goal_steps');
       tbl.date('goal_target_date');
       tbl.string('cm_task');
       tbl.timestamp('date_archived').defaultTo(knex.fn.now());
