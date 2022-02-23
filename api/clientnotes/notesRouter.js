@@ -179,8 +179,7 @@ router.put('/:id', async (req, res) => {
     const deletedNote = await Notes.updateDelete(id);
     if (!deletedNote) {
       res.status(404).json({
-        message:
-          'The client note with the specified ID does not exist and or update failed',
+        message: 'The client note with the specified ID does not exist',
       });
     } else {
       console.log('Client note updated:', deletedNote);
