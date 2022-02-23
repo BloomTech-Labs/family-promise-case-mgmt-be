@@ -26,8 +26,14 @@ function update(id, changes) {
     });
 }
 
-function remove(id) {
-  return db('client_notes').where('id', id).del();
+function updateDelete(id) {
+  const changes = { deleted_at: Date.now() };
+  return db('client_notes')
+    .where(id)
+    .update(changes)
+    .then((id) => {
+      return getById(id);
+    });
 }
 
 module.exports = {
@@ -35,5 +41,5 @@ module.exports = {
   getById,
   insert,
   update,
-  remove,
+  updateDelete,
 };

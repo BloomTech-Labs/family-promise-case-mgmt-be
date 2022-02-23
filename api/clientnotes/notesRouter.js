@@ -150,4 +150,45 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /notes/:id:
+ *  put:
+ *    description: 'Deleting' new notes
+ *    responses:
+ *      200:
+ *        description: a notes object
+ *        content:
+ *              example:
+ *                - id: '3'
+ *                  client_id: '7'
+ *                  source_view: 'home dashboard'
+ *                  message: 'Needs the startup form package - update they have recieved all needed notes'
+ *                  created_by: 'Jon Adams'
+ *                  created_at: 05/28/2222 @14:00
+ *                  deleted_at: 05/29/2222 @12:45
+ *      404:
+ *        message: 'The client note with the specified ID does not exist'
+ *      500:
+ *        message: 'Client note could not be modified'
+ */
+
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedNote = await Notes.updateDelete(id);
+    if (!deletedNote) {
+      res.status(404).json({
+        message:
+          'The client note with the specified ID does not exist and or update failed',
+      });
+    } else {
+      console.log('Client note updated:', deletedNote);
+      res.status(200).json(deletedNote);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client note could not be modified' });
+  }
+});
+
 module.exports = router;
