@@ -17,6 +17,7 @@ exports.up = function (knex) {
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('households', (tbl) => {
+      //We will verify to stakeholder next week!
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable();
       tbl.datetime('created_at').defaultTo(knex.fn.now());
