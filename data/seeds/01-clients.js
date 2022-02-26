@@ -14,7 +14,11 @@ exports.seed = function (knex) {
           relation: 'Father',
           education_level: 'High School',
           gender_id: 1,
+          race_id: 1,
           ethnicity_id: 1,
+          finances_id: 1,
+          documents_id: 1,
+          goals_id: 1,
         }, // eslint-disable-line
         {
           household_id: 2,
@@ -24,8 +28,12 @@ exports.seed = function (knex) {
           is_hoh: true,
           relation: 'Father',
           education_level: 'GED',
-          gender_id: 1,
-          ethnicity_id: 1,
+          gender_id: 2,
+          race_id: 2,
+          ethnicity_id: 2,
+          finances_id: 2,
+          documents_id: 2,
+          goals_id: 2,
         }, // eslint-disable-line
         {
           household_id: 3,
@@ -35,8 +43,12 @@ exports.seed = function (knex) {
           is_hoh: true,
           relation: 'Father',
           education_level: 'GED',
-          gender_id: 1,
-          ethnicity_id: 1,
+          gender_id: 3,
+          race_id: 3,
+          ethnicity_id: 3,
+          finances_id: 3,
+          documents_id: 3,
+          goals_id: 3,
         }, // eslint-disable-line
         {
           household_id: 4,
@@ -46,8 +58,12 @@ exports.seed = function (knex) {
           is_hoh: true,
           relation: 'Father',
           education_level: 'High School',
-          gender_id: 1,
-          ethnicity_id: 1,
+          gender_id: 4,
+          race_id: 4,
+          ethnicity_id: 4,
+          finances_id: 4,
+          documents_id: 4,
+          goals_id: 4,
         }, // eslint-disable-line
         {
           household_id: 5,
@@ -57,8 +73,12 @@ exports.seed = function (knex) {
           is_hoh: true,
           relation: 'Father',
           education_level: 'High School',
-          gender_id: 1,
-          ethnicity_id: 1,
+          gender_id: 5,
+          race_id: 5,
+          ethnicity_id: 5,
+          finances_id: 5,
+          documents_id: 5,
+          goals_id: 5,
         }, // eslint-disable-line
       ]);
     });

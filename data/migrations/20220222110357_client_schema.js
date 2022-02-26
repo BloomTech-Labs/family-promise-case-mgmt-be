@@ -13,13 +13,13 @@ exports.up = function (knex) {
       tbl.string('city');
       tbl.string('state');
       tbl.string('zip');
-      tbl.string('deleted_at').defaultTo(knex.fn.now());
-      tbl.string('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('households', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable();
-      tbl.string('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
 
     .createTable('clients', (tbl) => {
@@ -38,7 +38,7 @@ exports.up = function (knex) {
       tbl.integer('insurance_id');
       tbl.integer('documents_id');
       tbl.integer('goals_id');
-      tbl.string('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
 
     .createTable('genders', (tbl) => {
@@ -57,32 +57,28 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (tbl) => {
       tbl.increments().notNullable().unique();
-      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
-      tbl.string('deleted_at').defaultTo(knex.fn.now());
-      tbl.string('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('email_addresses', (tbl) => {
       tbl.increments().notNullable().unique();
-      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('email').notNullable().unique();
       tbl.string('email_type');
       tbl.boolean('allow_sms');
-      tbl.string('deleted_at').defaultTo(knex.fn.now());
-      tbl.string('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('education_histories', (tbl) => {
       tbl.increments().notNullable().unique();
-      //   tbl.integer('client_id').notNuwllable().unique();
       tbl.string('school_name');
       tbl.string('level');
-      tbl.string('start_date');
-      tbl.string('end_date');
+      tbl.date('start_date');
+      tbl.date('end_date');
     })
     .createTable('finances', (tbl) => {
       tbl.increments().notNullable().unique();
-      //  tbl.string('type_of_debt'); double check to Jake
       tbl.boolean('history_of_evictions');
       tbl.boolean('history_of_landlord_debt');
       tbl.boolean('history_of_criminal_activity');
@@ -104,9 +100,9 @@ exports.up = function (knex) {
       tbl.string('private_insurance_subscriber_number');
       tbl.datetime('private_insurance_effective_date').defaultTo(knex.fn.now());
       tbl
-        .datetime('private_insurance_expiration_date ')
+        .datetime('private_insurance_expiration_date')
         .defaultTo(knex.fn.now());
-      //tbl.string('employer_occupation')
+      tbl.string('employer_occupation');
       tbl.string('other_coverage');
       tbl.string('other_agencies');
     })
@@ -137,7 +133,7 @@ exports.up = function (knex) {
       tbl.string('referrals_home');
       tbl.string('referrals_work');
       tbl.string('referrals_email', 35).notNullable().unique();
-      //   tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
+      tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
@@ -145,7 +141,7 @@ exports.up = function (knex) {
       tbl.string('goal_steps');
       tbl.date('goal_target_date');
       tbl.string('cm_task');
-      tbl.timestamp('date_archived').defaultTo(knex.fn.now());
+      tbl.datetime('date_archived').defaultTo(knex.fn.now());
       tbl.string('notes');
       tbl.string('client_strength');
       tbl.string('client_obstacle');

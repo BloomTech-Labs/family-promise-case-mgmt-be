@@ -5,9 +5,14 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('ethnicities').insert([
-        { id: 1, colName: 'American Indian or Alaska Native' },
-        { id: 2, colName: 'Black or African American' },
-        { id: 3, colName: 'Asian' },
+        { name: 'American Indian or Alaska Native' },
+        { name: 'Asian' },
+        { name: 'Black or African American' },
+        { name: 'Native Hawaiian or Other pacific Lslander' },
+        { name: 'White or Caucasian' },
+        { name: 'Hispanic or Latino or Spanish Origin' },
+        { name: 'Non-Resident Alien (of any race or ethnicity)' },
+        { name: 'Multiracial or Biracial' },
       ]);
     });
 };

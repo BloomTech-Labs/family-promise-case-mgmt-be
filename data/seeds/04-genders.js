@@ -5,9 +5,12 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('genders').insert([
-        { id: 1, name: 'Female' },
-        { id: 2, name: 'Male' },
-        { id: 3, name: 'Transgender Male' },
+        { name: 'Male' },
+        { name: 'Female' },
+        { name: 'Transgender Male' },
+        { name: 'Transgender Female' },
+        { name: 'Non-Binary' },
+        { name: 'Prefer to Self-Describe' },
       ]);
     });
 };

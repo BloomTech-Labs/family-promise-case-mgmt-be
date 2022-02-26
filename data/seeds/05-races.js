@@ -5,9 +5,11 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('races').insert([
-        { id: 1, name: 'white' },
-        { id: 2, colName: 'black or african american' },
-        { id: 3, colName: 'asian' },
+        { name: 'American Indian or Alaska Native' },
+        { name: 'Asian' },
+        { name: 'Black or African American' },
+        { name: 'Native Hawaiian or Other pacific Lslander' },
+        { name: 'White' },
       ]);
     });
 };
