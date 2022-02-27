@@ -31,10 +31,13 @@ exports.up = function (knex) {
       tbl.string('ssn', 9).notNullable();
       tbl.boolean('is_hoh');
       tbl.string('relation');
-      tbl.string('education_level');
+      // tbl.string('education_level');
       tbl.integer('gender_id');
       tbl.integer('race_id');
       tbl.integer('ethnicity_id');
+      tbl.integer('phone_numbers_id');
+      tbl.integer('email_addresses_id');
+      tbl.integer('education_histories_id');
       tbl.integer('finances_id');
       tbl.integer('insurance_id');
       tbl.integer('documents_id');
@@ -58,6 +61,7 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (tbl) => {
       tbl.increments().notNullable().unique();
+      // tbl.integer('client_id').notNullable();
       tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
       tbl.datetime('deleted_at');
@@ -65,6 +69,7 @@ exports.up = function (knex) {
     })
     .createTable('email_addresses', (tbl) => {
       tbl.increments().notNullable().unique();
+      // tbl.integer('client_id').notNullable();
       tbl.string('email').notNullable().unique();
       tbl.string('email_type');
       tbl.boolean('allow_sms');
