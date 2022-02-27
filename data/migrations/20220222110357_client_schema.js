@@ -98,13 +98,13 @@ exports.up = function (knex) {
     .createTable('insurance', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.string('medicare_number', 25);
-      tbl.datetime('medicare_effective_date').defaultTo(knex.fn.now());
+      tbl.datetime('medicare_effective_date');
       tbl.string('medicaid_number', 25);
-      tbl.datetime('medicaid_effective_date').defaultTo(knex.fn.now());
+      tbl.datetime('medicaid_effective_date');
       tbl.string('private_insurance_company');
       tbl.integer('private_insurance_group_number');
       tbl.string('private_insurance_subscriber_number');
-      tbl.datetime('private_insurance_effective_date').defaultTo(knex.fn.now());
+      tbl.datetime('private_insurance_effective_date');
       tbl
         .datetime('private_insurance_expiration_date')
         .defaultTo(knex.fn.now());
