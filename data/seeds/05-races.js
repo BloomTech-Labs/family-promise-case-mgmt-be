@@ -8,7 +8,7 @@ exports.seed = function (knex) {
         { name: 'American Indian or Alaska Native' },
         { name: 'Asian' },
         { name: 'Black or African American' },
-        { name: 'Native Hawaiian or Other pacific Lslander' },
+        { name: 'Native Hawaiian or Other pacific islander' },
         { name: 'White' },
       ]);
     });
