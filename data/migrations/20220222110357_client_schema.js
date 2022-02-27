@@ -131,13 +131,13 @@ exports.up = function (knex) {
       tbl.boolean('can_text_apartment_listings');
       tbl.boolean('can_text_career_fairs');
       tbl.boolean('can_add_referrals');
-      tbl.string('referrals_name', 30).notNullable().unique();
+      tbl.string('referrals_name', 30);
       tbl.string('referrals_address');
       tbl.string('referrals_cell');
       tbl.string('referrals_home');
       tbl.string('referrals_work');
-      tbl.string('referrals_email', 35).notNullable().unique();
-      tbl.datetime('first_meeting_date').defaultTo(knex.fn.now());
+      tbl.string('referrals_email', 35);
+      tbl.datetime('first_meeting_date'); // can we assume that the client and manager met before? ask jake!!!
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
