@@ -13,7 +13,7 @@ exports.up = function (knex) {
       tbl.string('city');
       tbl.string('state');
       tbl.string('zip');
-      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('households', (tbl) => {
@@ -60,7 +60,7 @@ exports.up = function (knex) {
       tbl.increments().notNullable().unique();
       tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
-      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('email_addresses', (tbl) => {
@@ -68,7 +68,7 @@ exports.up = function (knex) {
       tbl.string('email').notNullable().unique();
       tbl.string('email_type');
       tbl.boolean('allow_sms');
-      tbl.datetime('deleted_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('education_histories', (tbl) => {
