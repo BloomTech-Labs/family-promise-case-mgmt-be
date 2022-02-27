@@ -18,8 +18,8 @@ exports.seed = function (knex) {
           end_date: '2026-02-25T02:54:26Z',
         },
         {
-          school_name: 'Kona collage',
-          level: 'collage',
+          school_name: 'Kona college',
+          level: 'college',
           start_date: '2022-02-25T02:54:26Z',
           end_date: '2024-02-25T02:54:26Z',
         },
