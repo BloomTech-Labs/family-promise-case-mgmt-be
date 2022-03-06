@@ -3,38 +3,23 @@
 exports.up = function (knex) {
   return knex.schema
     .alterTable('locations', (tbl) => {
-      tbl.increments().notNullable().unique();
-      tbl.integer('household_id').notNullable();
-      tbl.string('type');
-      tbl.string('name');
-      tbl.string('latlong');
-      tbl.string('address1');
-      tbl.string('address2');
-      tbl.string('city');
-      tbl.string('state');
-      tbl.string('zip');
-      tbl.datetime('deleted_at');
+      tbl.dropColumn('created_at');
+      tbl.dropColumn('deleted_at');
+    })
+    .alterTable('locations', (tbl) => {
       tbl.datetime('created_at').defaultTo(knex.fn.now());
+      tbl.datetime('deleted_at');
     })
     .alterTable('households', (tbl) => {
-      //We will verify to stakeholder next week!
-      tbl.increments().notNullable().unique();
-      tbl.string('name').notNullable();
+      tbl.dropColumn('created_at');
+    })
+    .alterTable('households', (tbl) => {
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
-
     .alterTable('clients', (tbl) => {
-      tbl.increments().notNullable().unique();
-      tbl.integer('household_id').notNullable();
-      tbl.string('first_name').notNullable();
-      tbl.string('last_name').notNullable();
-      tbl.string('ssn', 9).notNullable();
-      tbl.boolean('is_hoh');
-      tbl.string('relation');
-      tbl.string('education_level');
-      tbl.integer('gender_id');
-      tbl.integer('race_id');
-      tbl.integer('ethnicity_id');
+      tbl.dropColumn('created_at');
+    })
+    .alterTable('clients', (tbl) => {
       tbl.integer('phone_numbers_id');
       tbl.integer('email_addresses_id');
       tbl.integer('education_histories_id');
@@ -46,49 +31,29 @@ exports.up = function (knex) {
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
 
-    .createTable('genders', (tbl) => {
-      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
-      tbl.increments().notNullable().unique();
-      tbl.integer('client_id').notNullable();
-      tbl.string('name').notNullable().unique();
+    .alterTable('phone_numbers', (tbl) => {
+      tbl.dropColumn('number');
+      tbl.dropColumn('deleted_at');
+      tbl.dropColumn('created_at');
     })
-
-    .createTable('races', (tbl) => {
-      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
-      tbl.increments().notNullable().unique();
-      tbl.integer('client_id').notNullable();
-      tbl.string('name').notNullable().unique();
-    })
-
-    .createTable('ethnicities', (tbl) => {
-      tbl.increments().notNullable().unique();
-      tbl.integer('client_id').notNullable();
-      tbl.string('name').notNullable().unique();
-    })
-    .createTable('phone_numbers', (tbl) => {
-      tbl.increments().notNullable().unique();
-      tbl.integer('client_id').notNullable();
+    .alterTable('phone_numbers', (tbl) => {
       tbl.string('number', 10).notNullable().unique();
-      tbl.string('phone_type');
       tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
-    .createTable('email_addresses', (tbl) => {
-      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
-      tbl.increments().notNullable().unique();
-      tbl.integer('client_id').notNullable();
-      tbl.string('email').notNullable().unique();
-      tbl.string('email_type');
-      tbl.boolean('allow_sms');
+    .alterTable('email_addresses', (tbl) => {
+      tbl.dropColumn('deleted_at');
+      tbl.dropColumn('created_at');
+    })
+    .alterTable('email_addresses', (tbl) => {
       tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .alterTable('education_histories', (tbl) => {
-      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
-      tbl.increments().notNullable().unique().primary();
-      tbl.integer('client_id').notNullable();
-      tbl.string('school_name');
-      tbl.string('level');
+      tbl.dropColumn('start_date');
+      tbl.dropColumn('end_date');
+    })
+    .alterTable('education_histories', (tbl) => {
       tbl.date('start_date');
       tbl.date('end_date');
     })
