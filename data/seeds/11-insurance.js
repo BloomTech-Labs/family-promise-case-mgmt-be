@@ -6,6 +6,7 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('insurance').insert([
         {
+          client_id: 1,
           medicare_number: '1EG4-TE5-MH72',
           medicare_effective_date: '2022-02-25T02:54:26Z',
           medicaid_number: '11122333344',
@@ -20,6 +21,7 @@ exports.seed = function (knex) {
           other_agencies: '',
         },
         {
+          client_id: 2,
           medicare_number: '1AAG4-TE5-MH72',
           medicare_effective_date: '2022-02-25T02:54:26Z',
           medicaid_number: '11122333344',
@@ -34,6 +36,7 @@ exports.seed = function (knex) {
           other_agencies: '',
         },
         {
+          client_id: 3,
           medicare_number: '1EG4-TE5-MH72',
           medicare_effective_date: '2022-02-25T02:54:26Z',
           medicaid_number: '11122333344',

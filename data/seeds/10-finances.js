@@ -6,6 +6,7 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('finances').insert([
         {
+          client_id: 1,
           history_of_evictions: true,
           history_of_landlord_debt: false,
           history_of_criminal_activity: false,
@@ -17,6 +18,7 @@ exports.seed = function (knex) {
           amount_of_auto_debt: 0,
         },
         {
+          client_id: 2,
           history_of_evictions: false,
           history_of_landlord_debt: false,
           history_of_criminal_activity: true,
@@ -28,6 +30,7 @@ exports.seed = function (knex) {
           amount_of_auto_debt: 0,
         },
         {
+          client_id: 3,
           history_of_evictions: false,
           history_of_landlord_debt: false,
           history_of_criminal_activity: false,

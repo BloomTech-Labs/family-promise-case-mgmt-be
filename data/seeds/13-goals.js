@@ -4,8 +4,9 @@ exports.seed = function (knex) {
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('golas').insert([
+      return knex('goals').insert([
         {
+          client_id: 1,
           goal_statement:
             'Imperdiet nascetur. Sociosqu at condimentum primis taciti facilisis mollis orci pede parturient placerat pellentesque sociosqu phasellus suspendisse dignissim porta vulputate a libero mi eros, sit sagittis, turpis ultrices tincidunt senectus.',
           goal_steps:
@@ -24,6 +25,7 @@ exports.seed = function (knex) {
             'Adipiscing conubia arcu ornare tempor primis, per iaculis odio sociis magna tortor sodales praesent dictumst.',
         },
         {
+          client_id: 2,
           goal_statement:
             'Imperdiet nascetur. Sociosqu at condimentum primis taciti facilisis mollis orci pede parturient placerat pellentesque sociosqu phasellus suspendisse dignissim porta vulputate a libero mi eros, sit sagittis, turpis ultrices tincidunt senectus.',
           goal_steps:
@@ -42,6 +44,7 @@ exports.seed = function (knex) {
             'Adipiscing conubia arcu ornare tempor primis, per iaculis odio sociis magna tortor sodales praesent dictumst.',
         },
         {
+          client_id: 3,
           goal_statement:
             'Imperdiet nascetur. Sociosqu at condimentum primis taciti facilisis mollis orci pede parturient placerat pellentesque sociosqu phasellus suspendisse dignissim porta vulputate a libero mi eros, sit sagittis, turpis ultrices tincidunt senectus.',
           goal_steps:

@@ -1,11 +1,12 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('table_name')
+  return knex('documents')
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('table_name').insert([
+      return knex('documents').insert([
         {
+          client_id: 1,
           completed_hfca: true,
           valid_driver: true,
           valid_social: false,
@@ -33,6 +34,7 @@ exports.seed = function (knex) {
           referrals_email: 'johnsmith@gmail.com',
         },
         {
+          client_id: 2,
           completed_hfca: true,
           valid_driver: true,
           valid_social: false,
@@ -60,6 +62,7 @@ exports.seed = function (knex) {
           referrals_email: 'sallysmith@gmail.com',
         },
         {
+          client_id: 3,
           completed_hfca: true,
           valid_driver: true,
           valid_social: false,

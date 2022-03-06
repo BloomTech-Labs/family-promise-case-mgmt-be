@@ -6,15 +6,18 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('phone_numbers').insert([
         {
-          number: '808-353-9044',
+          client_id: 1,
+          number: '8083539044',
           phone_type: 'work',
         },
         {
-          number: '808-677-9821',
+          client_id: 2,
+          number: '8086779821',
           phone_type: 'home',
         },
         {
-          number: '808-999-9909',
+          client_id: 3,
+          number: '8089999909',
           phone_type: 'home',
         },
       ]);
