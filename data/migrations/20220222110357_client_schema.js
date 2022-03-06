@@ -2,7 +2,7 @@
 
 exports.up = function (knex) {
   return knex.schema
-    .createTable('locations', (tbl) => {
+    .alterTable('locations', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.integer('household_id').notNullable();
       tbl.string('type');
@@ -16,14 +16,14 @@ exports.up = function (knex) {
       tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
-    .createTable('households', (tbl) => {
+    .alterTable('households', (tbl) => {
       //We will verify to stakeholder next week!
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable();
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
 
-    .createTable('clients', (tbl) => {
+    .alterTable('clients', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.integer('household_id').notNullable();
       tbl.string('first_name').notNullable();
@@ -31,13 +31,13 @@ exports.up = function (knex) {
       tbl.string('ssn', 9).notNullable();
       tbl.boolean('is_hoh');
       tbl.string('relation');
-      // tbl.string('education_level');
+      tbl.string('education_level');
       tbl.integer('gender_id');
       tbl.integer('race_id');
       tbl.integer('ethnicity_id');
-      tbl.integer('phone_numbers_id');
-      tbl.integer('email_addresses_id');
-      tbl.integer('education_histories_id');
+      // tbl.integer('phone_numbers_id');
+      // tbl.integer('email_addresses_id');
+      // tbl.integer('education_histories_id');
       tbl.integer('finances_id');
       tbl.integer('insurance_id');
       tbl.integer('documents_id');
@@ -46,11 +46,13 @@ exports.up = function (knex) {
     })
 
     .createTable('genders', (tbl) => {
+      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable().unique();
     })
 
     .createTable('races', (tbl) => {
+      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
       tbl.string('name').notNullable().unique();
     })
@@ -61,15 +63,16 @@ exports.up = function (knex) {
     })
     .createTable('phone_numbers', (tbl) => {
       tbl.increments().notNullable().unique();
-      // tbl.integer('client_id').notNullable();
+      tbl.integer('client_id').notNullable();
       tbl.string('number', 10).notNullable().unique();
       tbl.string('phone_type');
       tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('email_addresses', (tbl) => {
+      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
-      // tbl.integer('client_id').notNullable();
+      tbl.integer('client_id').notNullable();
       tbl.string('email').notNullable().unique();
       tbl.string('email_type');
       tbl.boolean('allow_sms');
@@ -77,7 +80,9 @@ exports.up = function (knex) {
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
     .createTable('education_histories', (tbl) => {
+      //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('school_name');
       tbl.string('level');
       tbl.date('start_date');

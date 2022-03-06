@@ -27,7 +27,7 @@ exports.seed = function (knex) {
           private_insurance_subscriber_number: '345222222',
           private_insurance_effective_date: '2022-02-25T02:54:26Z',
           private_insurance_expiration_date: '2025-02-25T02:54:26Z',
-          employer_occupation: 'Doctor',
+          employer_occupation: 'Doctor', //I need to ask to Derek.
           other_coverage: '',
           other_agencies: '',
         },
