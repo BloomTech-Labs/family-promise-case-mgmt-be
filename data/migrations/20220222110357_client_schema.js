@@ -38,6 +38,7 @@ exports.up = function (knex) {
       tbl.integer('phone_numbers_id');
       tbl.integer('email_addresses_id');
       tbl.integer('education_histories_id');
+      tbl.integer('most_recent_employment_id');
       tbl.integer('finances_id');
       tbl.integer('insurance_id');
       tbl.integer('documents_id');
@@ -163,11 +164,19 @@ exports.up = function (knex) {
       tbl.string('client_strength');
       tbl.string('client_obstacle');
       tbl.string('progress_summary');
+    })
+    .createTable('most_recent_employment', (tbl) => {
+      tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
+      tbl.string('company_name');
+      tbl.boolean('currently_employed');
+      tbl.string('skill_set');
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists('most_recent_employment')
     .dropTableIfExists('goals')
     .dropTableIfExists('documents')
     .dropTableIfExists('insurance')
