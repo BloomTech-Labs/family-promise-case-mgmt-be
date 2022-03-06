@@ -118,7 +118,8 @@ exports.up = function (knex) {
       tbl.string('private_insurance_subscriber_number');
       tbl.datetime('private_insurance_effective_date');
       tbl.datetime('private_insurance_expiration_date');
-      tbl.string('employer_occupation');
+      tbl.string('employer_name');
+      tbl.string('employee_occupation');
       tbl.string('other_coverage');
       tbl.string('other_agencies');
     })
