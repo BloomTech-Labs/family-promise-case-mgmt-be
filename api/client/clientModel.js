@@ -26,8 +26,9 @@ const update = (id, changes) => {
 };
 
 // FOR THE CLIENT NOTES ROUTES
-function get() {
-  return db('client_notes').orderBy('created_at', 'desc');
+function get(client_id) {
+  console.log('model working?');
+  return db('client_notes').where({ client_id }).orderBy('created_at', 'desc');
 }
 
 function getById(id) {
