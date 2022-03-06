@@ -35,9 +35,9 @@ exports.up = function (knex) {
       tbl.integer('gender_id');
       tbl.integer('race_id');
       tbl.integer('ethnicity_id');
-      // tbl.integer('phone_numbers_id');
-      // tbl.integer('email_addresses_id');
-      // tbl.integer('education_histories_id');
+      tbl.integer('phone_numbers_id');
+      tbl.integer('email_addresses_id');
+      tbl.integer('education_histories_id');
       tbl.integer('finances_id');
       tbl.integer('insurance_id');
       tbl.integer('documents_id');
@@ -48,17 +48,20 @@ exports.up = function (knex) {
     .createTable('genders', (tbl) => {
       //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('name').notNullable().unique();
     })
 
     .createTable('races', (tbl) => {
       //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('name').notNullable().unique();
     })
 
     .createTable('ethnicities', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('name').notNullable().unique();
     })
     .createTable('phone_numbers', (tbl) => {
@@ -79,17 +82,19 @@ exports.up = function (knex) {
       tbl.datetime('deleted_at');
       tbl.datetime('created_at').defaultTo(knex.fn.now());
     })
-    .createTable('education_histories', (tbl) => {
+    .alterTable('education_histories', (tbl) => {
       //I have to discuss with Jake whether or not we need primary keys. If we don't, we do not have to alter the previous tables.
-      tbl.increments().notNullable().unique();
+      tbl.increments().notNullable().unique().primary();
       tbl.integer('client_id').notNullable();
       tbl.string('school_name');
       tbl.string('level');
       tbl.date('start_date');
       tbl.date('end_date');
     })
+
     .createTable('finances', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.boolean('history_of_evictions');
       tbl.boolean('history_of_landlord_debt');
       tbl.boolean('history_of_criminal_activity');
@@ -102,6 +107,7 @@ exports.up = function (knex) {
     })
     .createTable('insurance', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('medicare_number', 25);
       tbl.datetime('medicare_effective_date');
       tbl.string('medicaid_number', 25);
@@ -117,6 +123,7 @@ exports.up = function (knex) {
     })
     .createTable('documents', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.boolean('completed_hfca');
       tbl.boolean('valid_driver');
       tbl.boolean('valid_social');
@@ -146,6 +153,7 @@ exports.up = function (knex) {
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
+      tbl.integer('client_id').notNullable();
       tbl.string('goal_statement');
       tbl.string('goal_steps');
       tbl.date('goal_target_date');
