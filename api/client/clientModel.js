@@ -38,8 +38,8 @@ function getById(id) {
 function insert(note) {
   return db('client_notes')
     .insert(note)
-    .then((id) => {
-      return getById(id[0]);
+    .then((client_id) => {
+      return getById(client_id[0]);
     });
 }
 

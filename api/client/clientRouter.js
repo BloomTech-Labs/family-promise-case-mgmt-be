@@ -80,7 +80,7 @@ router.put(':id', (req, res) => {
 
 /**
  * @swagger
- * /{client_id}/notes
+ * /:id/notes
  *  get:
  *    description: Returns a list of client notes
  *    summary: seeing all notes for the client in question
@@ -123,7 +123,7 @@ router.get('/:id/notes', (req, res) => {
 
 /**
  * @swagger
- * /{client_id}/notes/{id}
+ * /:id/notes/:id
  *  get:
  *    description: Find client notes by id
  *    summary: for seeing a single note details
@@ -142,7 +142,7 @@ router.get('/:id/notes', (req, res) => {
  *        message: 'Error retrieving client note'
  */
 
-router.get('/{client_id}/notes/{id}', (req, res) => {
+router.get('/:id/notes/:id', (req, res) => {
   const { id } = req.params;
   Clients.getById(id)
     .then((note) => {
@@ -157,7 +157,7 @@ router.get('/{client_id}/notes/{id}', (req, res) => {
 
 /**
  * @swagger
- * //{client_id}/notes
+ * /:id/notes
  *  post:
  *    description: Add a new client note
  *    summary: creating new notes
@@ -176,7 +176,7 @@ router.get('/{client_id}/notes/{id}', (req, res) => {
  *        message: 'Error adding client note'
  */
 
-router.post('/{client_id}/notes', (req, res) => {
+router.post('/:id/notes', (req, res) => {
   Clients.insert(req.body)
     .then((note) => {
       console.log('New note added:', note);
@@ -190,7 +190,7 @@ router.post('/{client_id}/notes', (req, res) => {
 
 /**
  * @swagger
- * /{client_id}/notes/{id}
+ * /:id/notes/:id
  *  put:
  *    description: Updating old notes
  *    responses:
@@ -201,7 +201,7 @@ router.post('/{client_id}/notes', (req, res) => {
  *                - id: '3'
  *                  client_id: '7'
  *                  source_view: 'home dashboard'
- *                  message: 'Needs the startup form package - update they have recieved all needed notes'
+ *                  message: ~updated~ they have recieved all needed notes'
  *                  created_by: 'Jon Adams'
  *                  created_at: 05/28/2222 @14:00
  *      404:
@@ -210,7 +210,7 @@ router.post('/{client_id}/notes', (req, res) => {
  *        message: 'Client note could not be modified'
  */
 
-router.put('/{client_id}/notes/{id}', async (req, res) => {
+router.put('/:id/notes/:id', async (req, res) => {
   const changes = req.body;
   const { id } = req.params;
   try {
@@ -230,7 +230,7 @@ router.put('/{client_id}/notes/{id}', async (req, res) => {
 
 /**
  * @swagger
- * /{client_id}/notes/{id}
+ * /:id/notes/:id
  *  put:
  *    description: 'Deleting' client notes
  *    responses:
@@ -251,7 +251,7 @@ router.put('/{client_id}/notes/{id}', async (req, res) => {
  *        message: 'Client note could not be modified'
  */
 
-router.put('/{client_id}/notes/{id}', async (req, res) => {
+router.put('/:id/notes/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const deletedNote = await Clients.updateDelete(id);
