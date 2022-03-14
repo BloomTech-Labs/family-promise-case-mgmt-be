@@ -210,17 +210,45 @@ router.post('/:id/notes', (req, res) => {
  *        message: 'Client note could not be modified'
  */
 
-router.put('/:id/notes/:id', async (req, res) => {
+// router.put('/:clientID/notes/:noteID', async (req, res) => {
+//   const changes = req.body;
+//   const { id } = req.params;
+//   console.log(req.params)
+//   try {
+//     const updatedNote = await Clients.notesUpdate(id, changes)
+//     console.log(updatedNote)
+//     if (!updatedNote) {
+//       res.status(404).json({
+//         message: 'The client note with the specified ID does not exist',
+//       });
+//     } else {
+//       console.log('Client note updated:', updatedNote);
+//       res.status(200).json(updatedNote);
+//     }
+//   } catch (error) {
+//     res.status(500).json({ message: 'Client note could not be modified' });
+//   }
+// });
+
+router.put('/:clientID/notes/:noteID', async (req, res) => {
   const changes = req.body;
-  const { id } = req.params;
+  // break out both with deconstruction
+  const { clientID, noteID } = req.params;
+  // now we can console.log
+  //console.log(req.params)
+  // console.log(`client data to modify : ${clientID}, note to modify: ${noteID}`)
   try {
-    const updatedNote = await Clients.notesUpdate(id, changes);
+    // make sure to modify payload to take in both clientID and noteID -> maybe clientID not necessary?
+    const updatedNote = await Clients.notesUpdate(clientID, noteID, changes);
+    console.log(updatedNote);
     if (!updatedNote) {
       res.status(404).json({
         message: 'The client note with the specified ID does not exist',
       });
     } else {
-      console.log('Client note updated:', updatedNote);
+      // console.log('Client note updated:', updatedNote);
+      // this is not updatedNote, as we are just giving back the original note for testing purposes!
+      // console.log('ORIGINAL NON-MODIFIED CLIENT NOTE:', updatedNote);
       res.status(200).json(updatedNote);
     }
   } catch (error) {
@@ -251,7 +279,7 @@ router.put('/:id/notes/:id', async (req, res) => {
  *        message: 'Client note could not be modified'
  */
 
-router.put('/:id/notes/:id', async (req, res) => {
+router.delete('/:id/notes/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const deletedNote = await Clients.updateDelete(id);
