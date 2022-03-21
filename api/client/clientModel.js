@@ -1,10 +1,7 @@
 const db = require('../../data/db-config');
 
-// meed help mocking this data for future reference
-
 const add = async (newClient) => {
   const [id] = await db('clients').insert(newClient);
-
   return findById(id);
 };
 
