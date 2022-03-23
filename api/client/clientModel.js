@@ -43,41 +43,15 @@ function insert(note) {
     });
 }
 
-// function notesUpdate(id, changes) {
-//   return db('client_notes')
-//     .where(id)
-//     .update(changes)
-//     .then((id) => {
-//       return getById(id);
-//     });
-// }
-
-// async function notesUpdate(id, changes) {
-//   const note = await db('client_notes').where(id);
-//   const updatedNote = {changes, ...note}
-//   console.log("comparison of note and updatedNote", note)
-//   return updatedNote;
-// }
-
-// async function notesUpdate(clientID, noteID, changes) {
-//   const note = await db('client_notes').where(noteID);
-//   // const updatedNote = {changes, ...note}
-//   console.log("comparison of note", note)
-//   return note;
-// }
-
 async function notesUpdate(clientID, noteID, changes) {
   console.log(`the client ID here, ${clientID}, is not currently being used.`);
   console.log(`the note ID here, ${noteID}, does it exist?`);
   const originalNote = await db('client_notes')
     .where('id', noteID)
     .catch((error) => console.error("Dang, didn't work.", error));
-  // const updatedNote = {changes, ...originalNote}
   console.log('eventual changes', changes);
   console.log('the Original Note', originalNote);
-  // we will need to update this eventually.
   return originalNote;
-  // return updatedNote;
 }
 
 function updateDelete(id) {
