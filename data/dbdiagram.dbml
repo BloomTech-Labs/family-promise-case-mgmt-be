@@ -29,8 +29,28 @@ tablegroup households {
 }
   
 Table households {
-  id bigint [primary key]
-  name varchar
+  id bigint [primary key] 
+  name varchar //last name?
+  times_homeless_in_three_years integer
+  total_time_homeless_three_years integer 
+  total_time_homeless_past_year integer
+  previously_living_in_non_human_habitation boolean
+  previously_living_in_emergency_shelter boolean
+  previously_unsheltered boolean
+  previous_stay_length integer
+  needs_interpreter boolean
+  access_to_private_transportation boolean
+  // documented_disability_in_client_or_family varchar => need to ask should we capture the id of family member?
+  client_or_family_physical_illness_history varchar
+  client_or_family_mental_illness_history varchar
+  client_or_family_personal_violence_history varchar
+  client_or_family_substance_dependency_history varchar
+  cps_involvement boolean
+  cps_involvement_active boolean
+  dcyf_contact_name varchar
+  dcyf_contact_email varchar
+  dcyf_contact_phone_number varchar
+  section_8_voucher_lost boolean
   created_at datetime // with TZ
 }
 
