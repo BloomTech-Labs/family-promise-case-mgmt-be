@@ -1,3 +1,4 @@
+//this is for adding disability info into clients table and made disability table.
 exports.up = function (knex) {
   return knex.schema
     .alterTable('clients', (tbl) => {
