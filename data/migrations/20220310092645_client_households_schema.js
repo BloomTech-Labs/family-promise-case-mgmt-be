@@ -1,3 +1,5 @@
+//This is for adding updated households information
+
 exports.up = function (knex) {
   return knex.schema.alterTable('households', (tbl) => {
     tbl.integer('times_homeless_three_years');
@@ -12,7 +14,6 @@ exports.up = function (knex) {
     tbl.integer('previous_stay_length_months');
     tbl.boolean('needs_interpreter');
     tbl.boolean('access_to_private_transportation');
-    // tbl.string('documented_disability_in_client_or_family');
     tbl.string('client_or_family_history_physical_illness');
     tbl.string('client_or_family_history_mental_illness');
     tbl.string('client_or_family_history_personal_violence');
