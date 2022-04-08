@@ -26,11 +26,31 @@ tablegroup households {
   insurance
   documents
   goals
+  disabilities
 }
   
 Table households {
-  id bigint [primary key]
-  name varchar
+  id bigint [primary key] 
+  name varchar //last name?
+  times_homeless_in_three_years integer
+  total_time_homeless_three_years integer 
+  total_time_homeless_past_year integer
+  previously_living_in_non_human_habitation boolean
+  previously_living_in_emergency_shelter boolean
+  previously_unsheltered boolean
+  previous_stay_length integer
+  needs_interpreter boolean
+  access_to_private_transportation boolean
+  client_or_family_physical_illness_history varchar
+  client_or_family_mental_illness_history varchar
+  client_or_family_personal_violence_history varchar
+  client_or_family_substance_dependency_history varchar
+  cps_involvement boolean
+  cps_involvement_active boolean
+  dcyf_contact_name varchar
+  dcyf_contact_email varchar
+  dcyf_contact_phone_number varchar
+  section_8_voucher_lost boolean
   created_at datetime // with TZ
 }
 
@@ -66,6 +86,7 @@ Table clients {
   documents_id uuid [ref: > documents.id]
   goals_id uuid [ref: > goals.id]
   created_at datetime // with TZ
+  disabilities_id uuid [ref: > disabilities.id]
 }
 
 table client_notes {
@@ -130,6 +151,7 @@ table employment_histories {
 
 table finances {
   id uuid [primary key]
+  client_id uuid [ref: > clients.id]
   type_of_debt varchar
   history_of_evictions boolean
   history_of_landlord_debt boolean
@@ -144,6 +166,7 @@ table finances {
 
 table insurance {
   id uuid [primary key]
+  client_id uuid [ref: > clients.id]
   medicare_number varchar(25)
   medicare_effective_date datetime
   medicaid_number varchar(25)
@@ -161,6 +184,7 @@ table insurance {
 
 table documents {
   id uuid [primary key]
+  client_id uuid [ref: > clients.id]
   completed_hfca boolean 
   valid_driver boolean
   valid_social boolean
@@ -191,6 +215,7 @@ table documents {
 
 table goals {
   id uuid [primary key]
+  client_id uuid [ref: > clients.id]
   goal_statement varchar
   goal_steps varchar
   goal_target_date date
@@ -200,4 +225,10 @@ table goals {
   client_strengths varchar
   client_obstacles varchar
   progress_summary varchar
+}
+
+table disabilities {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  disability varchar
 }

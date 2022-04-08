@@ -12,7 +12,7 @@ exports.seed = function (knex) {
           ssn: '000272829',
           is_hoh: true,
           relation: 'Father',
-          education_level: 'High School',
+          education_level: 'college School',
           gender_id: 1,
           ethnicity_id: 1,
         }, // eslint-disable-line
