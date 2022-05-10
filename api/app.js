@@ -52,7 +52,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/data', dsRouter);
-app.use('/clients', clientRouter);
+app.use('/api/clients', clientRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
