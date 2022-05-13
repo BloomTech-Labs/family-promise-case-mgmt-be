@@ -193,6 +193,10 @@ table documents {
   birth_cert_for_children boolean
   child_enrolled_school boolean
   childcare boolean
+  }
+
+table contact_preferences {
+  client_id uuid [ref: > clients.id]
   food_assistance boolean
   clothing_assistance boolean 
   counseling_services boolean 
@@ -203,15 +207,20 @@ table documents {
   can_text_employment_opportunities boolean 
   can_text_apartment_listings boolean 
   can_text_career_fairs boolean
-  can_add_referrals boolean
-  referrals_name varchar(30) 
-  referrals_address varchar
-  referrals_cell varchar
-  referrals_home varchar
-  referrals_work varchar
-  referrals_email varchar(35)
-  first_meeting_date datetime // odd field on a document
-  }
+  can_refer_to_partners boolean
+}
+
+table references {
+  id uuid [primary key]
+  client_id uuid [ref: > clients.id]
+  name varchar(30) 
+  address varchar
+  cell varchar
+  home varchar
+  work varchar
+  email varchar(35)
+  first_meeting_date datetime
+}
 
 table goals {
   id uuid [primary key]
