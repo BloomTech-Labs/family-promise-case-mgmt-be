@@ -89,7 +89,6 @@ exports.up = function (knex) {
       tbl.string('other_agencies');
     })
     .createTable('documents', (tbl) => {
-      tbl.increments().notNullable().unique();
       tbl.integer('client_id').notNullable();
       tbl.string('completed_hfca');
       tbl.string('valid_driver');
