@@ -9,7 +9,7 @@ AWS.config.update({
 
 const S3_BUCKET = process.env.REACT_APP_BUCKET;
 
-router.post('/', (req, res) => {
+router.post('/sign_s3', (req, res) => {
   const s3 = new AWS.S3();
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
