@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@okta/jwt-verifier": "^2.0.0",
+    "aws-sdk": "^2.1145.0",
     "axios": "^0.21.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
