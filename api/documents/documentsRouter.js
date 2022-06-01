@@ -7,7 +7,7 @@ AWS.config.update({
   secretAccessKey: process.env.REACT_SECRET_ACCESS_KEY,
 });
 
-const S3_BUCKET = process.env.REACT_APP_BUCKET;
+const S3_BUCKET = process.env.BUCKET;
 
 router.post('/sign_s3', (req, res) => {
   const s3 = new AWS.S3();
