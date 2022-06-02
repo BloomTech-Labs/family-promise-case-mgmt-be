@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const AWS = require('aws-sdk');
-// const Documents = require('./documentsModel');
+const Documents = require('./documentsModel');
 
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
@@ -33,8 +33,38 @@ router.post('/sign_s3', (req, res) => {
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`,
     };
 
-    res.json({ success: true, data: { returnData } });
+    res.status(200).json({ success: true, data: { returnData } });
   });
+});
+
+router.post('/:id/update', (req, res) => {
+  const data = req.body;
+  const { id } = req.params;
+  Documents.update(id, data)
+    .then((updated) => {
+      console.log(updated);
+      res.status(201).json(updated);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error updating document',
+      });
+    });
+});
+
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  Documents.findById(id)
+    .then((documents) => {
+      res.status(200).json(documents);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: 'Error retrieving document',
+      });
+    });
 });
 
 module.exports = router;

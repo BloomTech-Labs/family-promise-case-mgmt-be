@@ -113,7 +113,7 @@ exports.up = function (knex) {
       tbl.boolean('can_text_career_fairs');
       tbl.boolean('can_refer_to_partners');
     })
-    .createTable('references', (tbl => {
+    .createTable('references', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.integer('client_id').notNullable();
       tbl.string('name');
@@ -127,7 +127,7 @@ exports.up = function (knex) {
       tbl.string('work');
       tbl.string('email');
       tbl.datetime('first_meeting_date');
-    }))
+    })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
       tbl.integer('client_id').notNullable();
