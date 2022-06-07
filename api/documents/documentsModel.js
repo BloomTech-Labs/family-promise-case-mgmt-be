@@ -29,10 +29,6 @@ const findById = async (client_id) => {
   return db('documents').where({ client_id }).first();
 };
 
-const remove = (client_id) => {
-  return db('documents').where({ client_id }).del();
-};
-
 const update = (client_id, changes) => {
   return db('documents').where({ client_id }).update(changes, '*');
 };
@@ -52,6 +48,5 @@ module.exports = {
   findById,
   findAll,
   update,
-  remove,
   getAddress,
 };
