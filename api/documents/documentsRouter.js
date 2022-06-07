@@ -57,7 +57,13 @@ router.get('/:id', (req, res) => {
   const { id } = req.params;
   Documents.findById(id)
     .then((documents) => {
-      res.status(200).json(documents);
+      const responseDocuments = {};
+      Object.entries(documents).forEach((document) => {
+        if (document[0] != 'client_id' && Object.keys(document[1]) != 0) {
+          responseDocuments[document[0]] = JSON.parse(document[1]);
+        }
+      });
+      res.status(200).json(responseDocuments);
     })
     .catch((error) => {
       console.log(error);

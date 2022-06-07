@@ -90,14 +90,14 @@ exports.up = function (knex) {
     })
     .createTable('documents', (tbl) => {
       tbl.integer('client_id').notNullable();
-      tbl.string('completed_hfca');
-      tbl.string('valid_driver');
-      tbl.string('valid_social');
-      tbl.string('dshs_wic_tanf_snap');
-      tbl.string('responsible_renters_course');
-      tbl.string('birth_cert_for_children');
-      tbl.string('child_enrolled_school');
-      tbl.string('childcare');
+      tbl.jsonb('completed_hfca');
+      tbl.jsonb('valid_driver');
+      tbl.jsonb('valid_social');
+      tbl.jsonb('dshs_wic_tanf_snap');
+      tbl.jsonb('responsible_renters_course');
+      tbl.jsonb('birth_cert_for_children');
+      tbl.jsonb('child_enrolled_school');
+      tbl.jsonb('childcare');
     })
     .createTable('contact_preferences', (tbl) => {
       tbl.integer('client_id').notNullable();
