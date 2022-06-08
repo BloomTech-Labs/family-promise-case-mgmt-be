@@ -29,14 +29,14 @@ router.post('/:client_id', (req, res) => {
     .catch((error) => {
       console.log(error);
       res.status(500).json({
-        message: 'Error updating referral',
+        message: 'Error adding referral',
       });
     });
 });
 
-router.get('/:referral_id', (req, res) => {
-  const { referral_id } = req.params;
-  Referrals.findById(referral_id)
+router.get('/:client_id', (req, res) => {
+  const { client_id } = req.params;
+  Referrals.findById(client_id)
     .then((referrals) => {
       const returnData = [];
       referrals.forEach((referral) => {
