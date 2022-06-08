@@ -33,20 +33,9 @@ const update = (client_id, changes) => {
   return db('documents').where({ client_id }).update(changes, '*');
 };
 
-const getAddress = (client_id) => {
-  const addressObj = db('documents')
-    .select('street_address', 'apt', 'city', 'state', 'zip')
-    .where({ client_id });
-  const address = `${addressObj.street_address}${
-    address.apt ? `${address.apt},` : ','
-  } ${address.city}, ${address.state} ${address.zip}`;
-  return address;
-};
-
 module.exports = {
   add,
   findById,
   findAll,
   update,
-  getAddress,
 };

@@ -113,8 +113,8 @@ exports.up = function (knex) {
       tbl.boolean('can_text_career_fairs');
       tbl.boolean('can_refer_to_partners');
     })
-    .createTable('references', (tbl) => {
-      tbl.increments().notNullable().unique();
+    .createTable('referrals', (tbl) => {
+      tbl.increments('referral_id').notNullable().unique();
       tbl.integer('client_id').notNullable();
       tbl.string('name');
       tbl.string('street_address');
