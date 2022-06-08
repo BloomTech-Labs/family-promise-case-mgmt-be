@@ -58,15 +58,19 @@ router.get('/:id', (req, res) => {
   Documents.findById(id)
     .then((documents) => {
       const responseDocuments = {};
-      Object.entries(documents).forEach((document) => {
-        if (
-          document[0] != 'client_id' &&
-          Object.keys(document[1]).length != 2
-        ) {
-          responseDocuments[document[0]] = document[1];
-        }
-      });
-      res.status(200).json(responseDocuments);
+      if (documents !== undefined) {
+        Object.entries(documents).forEach((document) => {
+          if (
+            document[0] != 'client_id' &&
+            Object.keys(document[1]).length != 2
+          ) {
+            responseDocuments[document[0]] = document[1];
+          }
+        });
+        res.status(200).json(responseDocuments);
+      } else {
+        res.status(200).json([]);
+      }
     })
     .catch((error) => {
       console.log(error);
