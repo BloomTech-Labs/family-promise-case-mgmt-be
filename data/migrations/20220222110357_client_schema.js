@@ -111,7 +111,6 @@ exports.up = function (knex) {
       tbl.boolean('can_text_employment_opportunities');
       tbl.boolean('can_text_apartment_listings');
       tbl.boolean('can_text_career_fairs');
-      tbl.boolean('can_refer_to_partners');
     })
     .createTable('referrals', (tbl) => {
       tbl.increments('referral_id').notNullable().unique();
