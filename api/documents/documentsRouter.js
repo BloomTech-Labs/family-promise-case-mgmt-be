@@ -63,7 +63,7 @@ router.get('/:id', (req, res) => {
           document[0] != 'client_id' &&
           Object.keys(document[1]).length != 2
         ) {
-          responseDocuments[document[0]] = JSON.parse(document[1]);
+          responseDocuments[document[0]] = document[1];
         }
       });
       res.status(200).json(responseDocuments);

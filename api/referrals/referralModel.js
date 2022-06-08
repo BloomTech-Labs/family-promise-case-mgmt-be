@@ -1,12 +1,10 @@
 const db = require('../../data/db-config');
 
 const add = async (client_id, referral) => {
-  await db('referrals')
-    .insert({
-      ...referral,
-      client_id: client_id,
-    })
-    .returning(['client_id', 'referral_id']);
+  await db('referrals').insert({
+    ...referral,
+    client_id: client_id,
+  });
   return findById(client_id);
 };
 
@@ -37,7 +35,7 @@ const getAddress = (client_id) => {
 };
 
 const remove = (client_id, referral_id) => {
-  return db('clients').where({ client_id, referral_id }).del();
+  return db('referrals').where({ client_id, referral_id }).del();
 };
 
 module.exports = {

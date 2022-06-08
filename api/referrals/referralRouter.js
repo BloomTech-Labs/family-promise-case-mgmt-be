@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const moment = require('moment');
 const Referrals = require('./referralModel');
 
 //update
@@ -7,7 +8,6 @@ router.post('/:client_id/:referral_id', (req, res) => {
   const { client_id, referral_id } = req.params;
   Referrals.update(client_id, referral_id, data)
     .then((updated) => {
-      console.log(updated);
       res.status(201).json(updated);
     })
     .catch((error) => {
@@ -38,7 +38,22 @@ router.get('/:referral_id', (req, res) => {
   const { referral_id } = req.params;
   Referrals.findById(referral_id)
     .then((referrals) => {
-      res.status(200).json(referrals);
+      const returnData = [];
+      referrals.forEach((referral) => {
+        const toReturn = { ...referral };
+        const dateTime = new Date(referral.first_meeting_date);
+        const [month, day, year] = [
+          dateTime.getMonth(),
+          dateTime.getDate(),
+          dateTime.getFullYear(),
+        ];
+        toReturn.first_meeting_date = moment(
+          `${month}-${day}-${year}`,
+          'MM-DD-YYYY'
+        );
+        returnData.push(toReturn);
+      });
+      res.status(200).json(returnData);
     })
     .catch((error) => {
       console.log(error);
@@ -52,7 +67,7 @@ router.delete('/:client_id/:referral_id', (req, res) => {
   const { client_id, referral_id } = req.params;
   Referrals.remove(client_id, referral_id)
     .then((referral) => {
-      res.status(410).json(referral);
+      res.status(201).json(referral);
     })
     .catch((error) => {
       console.log(error);

@@ -126,7 +126,7 @@ exports.up = function (knex) {
       tbl.string('home');
       tbl.string('work');
       tbl.string('email');
-      tbl.datetime('first_meeting_date');
+      tbl.date('first_meeting_date');
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
@@ -154,6 +154,8 @@ exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists('most_recent_employment')
     .dropTableIfExists('goals')
+    .dropTableIfExists('referrals')
+    .dropTableIfExists('contact_preferences')
     .dropTableIfExists('documents')
     .dropTableIfExists('insurance')
     .dropTableIfExists('finances')
