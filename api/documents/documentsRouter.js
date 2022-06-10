@@ -9,6 +9,8 @@ AWS.config.update({
 
 const S3_BUCKET = process.env.BUCKET;
 
+// get signed request
+
 router.post('/sign_s3', (req, res) => {
   const s3 = new AWS.S3();
   const fileName = req.body.fileName;
@@ -25,7 +27,11 @@ router.post('/sign_s3', (req, res) => {
   s3.getSignedUrl('putObject', s3Params, (err, data) => {
     if (err) {
       console.log(err);
-      res.json({ success: false, error: err });
+      res.status(500).json({
+        success: false,
+        error: err,
+        message: 'Error retrieving signed request',
+      });
     }
 
     const returnData = {
@@ -36,6 +42,25 @@ router.post('/sign_s3', (req, res) => {
     res.status(200).json({ success: true, data: { returnData } });
   });
 });
+
+/**
+ * @swagger
+ * /sign_s3
+ *  post:
+ *    description: Retrieve signed request from AWS
+ *    summary: for uploading to s3 bucket
+ *    responses:
+ *      200:
+ *        description: signed request and url to uploaded file
+ *        content:
+ *              example:
+ *                - signedRequest: 'https://family-promise-case-mgmt.s3.amazonaws.com/test/fileName.pdf?AWSAccessKeyId=ASDGQ4325WEG23&Expires=1252345&Signature=ASDG1435ASDF345'
+ *                  url: "https://family-promise-case-mgmt.s3.amazonaws.com/fileName"
+ *      500:
+ *        message: 'Error retrieving signed request'
+ *        success: 'false'
+ *        error: 'err'
+ */
 
 router.post('/:id/update', (req, res) => {
   const data = req.body;
@@ -52,6 +77,78 @@ router.post('/:id/update', (req, res) => {
       });
     });
 });
+
+/**
+ * @swagger
+ * /:id/update
+ *  post:
+ *    description: Update existing document
+ *    summary: for replacing an existing document with a new one
+ *    responses:
+ *      200:
+ *        description: a client's documents object
+ *        content:
+ *              example:
+ *                - client_id: 1,
+ *                  completed_hfca: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'completed_hfca',
+ *                    extension: 'pdf',
+ *                  },
+ *                  valid_driver: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_driver',
+ *                    extension: 'jpg',
+ *                  }),
+ *                  valid_social: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_social',
+ *                    extension: 'doc',
+ *                  }),
+ *                  dshs_wic_tanf_snap: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'dshs_wic_tanf_snap',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  responsible_renters_course: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'responsible_renters_course',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  birth_cert_for_children: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'birth_cert_for_children',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  child_enrolled_school: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'child_enrolled_school',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  childcare: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'childcare',
+ *                    extension: 'pdf',
+ *                  })
+ *      500:
+ *        message: 'Error updating document'
+ */
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -75,10 +172,82 @@ router.get('/:id', (req, res) => {
     .catch((error) => {
       console.log(error);
       res.status(500).json({
-        message: 'Error retrieving document',
+        message: 'Error retrieving documents',
       });
     });
 });
+
+/**
+ * @swagger
+ * /:id
+ *  get:
+ *    description: Retrieve client's documents
+ *    summary: for seeing all documents of a client
+ *    responses:
+ *      200:
+ *        description: a client's documents object
+ *        content:
+ *              example:
+ *                - client_id: 1,
+ *                  completed_hfca: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'completed_hfca',
+ *                    extension: 'pdf',
+ *                  },
+ *                  valid_driver: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_driver',
+ *                    extension: 'jpg',
+ *                  }),
+ *                  valid_social: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_social',
+ *                    extension: 'doc',
+ *                  }),
+ *                  dshs_wic_tanf_snap: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'dshs_wic_tanf_snap',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  responsible_renters_course: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'responsible_renters_course',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  birth_cert_for_children: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'birth_cert_for_children',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  child_enrolled_school: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'child_enrolled_school',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  childcare: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'childcare',
+ *                    extension: 'pdf',
+ *                  })
+ *      500:
+ *        message: 'Error retrieving documents'
+ */
 
 router.post('/:id', (req, res) => {
   const { id } = req.params;
@@ -107,11 +276,83 @@ router.post('/:id', (req, res) => {
         .catch((error) => {
           console.log(error);
           res.status(500).json({
-            message: 'Error retrieving document',
+            message: 'Error deleting document',
           });
         });
     }
   });
 });
+
+/**
+ * @swagger
+ * /:id
+ *  get:
+ *    description: Delete a client's document
+ *    summary: for removing a client's document
+ *    responses:
+ *      200:
+ *        description: a client's documents object
+ *        content:
+ *              example:
+ *                - client_id: 1,
+ *                  completed_hfca: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'completed_hfca',
+ *                    extension: 'pdf',
+ *                  },
+ *                  valid_driver: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_driver',
+ *                    extension: 'jpg',
+ *                  }),
+ *                  valid_social: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'valid_social',
+ *                    extension: 'doc',
+ *                  }),
+ *                  dshs_wic_tanf_snap: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'dshs_wic_tanf_snap',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  responsible_renters_course: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'responsible_renters_course',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  birth_cert_for_children: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'birth_cert_for_children',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  child_enrolled_school: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'child_enrolled_school',
+ *                    extension: 'pdf',
+ *                  }),
+ *                  childcare: {
+ *                    name: 'fileName',
+ *                    success: true,
+ *                    url: 'url',
+ *                    documentType: 'childcare',
+ *                    extension: 'pdf',
+ *                  })
+ *      500:
+ *        message: 'Error deleting document'
+ */
 
 module.exports = router;
