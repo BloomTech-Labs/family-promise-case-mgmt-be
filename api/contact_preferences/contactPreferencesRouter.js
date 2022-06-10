@@ -15,6 +15,32 @@ router.get('/:client_id', (req, res) => {
     });
 });
 
+/**
+ * @swagger
+ * /:client_id
+ *  get:
+ *    description: Retrieve client's contact preferences
+ *    summary: for seeing all client's contact preferences
+ *    responses:
+ *      200:
+ *        description: a client's contact preferences object
+ *        content:
+ *              example:
+ *                - client_id: 1,
+ *                  food_assistance: true,
+ *                  clothing_assistance: false,
+ *                  counseling_services: true,
+ *                  addiction_resources: false,
+ *                  mentor_programs: true,
+ *                  youth_services: false,
+ *                  budgeting: true,
+ *                  can_text_employment_opportunities: false,
+ *                  can_text_apartment_listings: true,
+ *                  can_text_career_fairs: false,
+ *      500:
+ *        message: 'Error retrieving contact preferences'
+ */
+
 router.post('/:client_id', (req, res) => {
   const { client_id } = req.params;
   ContactPreferences.findById(client_id)
@@ -38,7 +64,7 @@ router.post('/:client_id', (req, res) => {
           .catch((error) => {
             console.log(error);
             res.status(500).json({
-              message: 'Error adding contact preferences',
+              message: 'Error updating contact preferences',
             });
           });
       }
@@ -50,5 +76,31 @@ router.post('/:client_id', (req, res) => {
       });
     });
 });
+
+/**
+ * @swagger
+ * /:client_id
+ *  post:
+ *    description: Update client's contact preferences
+ *    summary: for updating and creating client's contact preferences
+ *    responses:
+ *      200:
+ *        description: a client's contact preferences object
+ *        content:
+ *              example:
+ *                - client_id: 1,
+ *                  food_assistance: true,
+ *                  clothing_assistance: false,
+ *                  counseling_services: true,
+ *                  addiction_resources: false,
+ *                  mentor_programs: true,
+ *                  youth_services: false,
+ *                  budgeting: true,
+ *                  can_text_employment_opportunities: false,
+ *                  can_text_apartment_listings: true,
+ *                  can_text_career_fairs: false,
+ *      500:
+ *        possible messages: [ 'Error retrieving contact preferences', 'Error updating contact preferences', 'Error adding contact preferences' ]
+ */
 
 module.exports = router;
