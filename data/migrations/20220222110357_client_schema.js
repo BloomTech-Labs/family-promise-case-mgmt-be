@@ -89,16 +89,18 @@ exports.up = function (knex) {
       tbl.string('other_agencies');
     })
     .createTable('documents', (tbl) => {
-      tbl.increments().notNullable().unique();
       tbl.integer('client_id').notNullable();
-      tbl.boolean('completed_hfca');
-      tbl.boolean('valid_driver');
-      tbl.boolean('valid_social');
-      tbl.boolean('dshs_wic_tanf_snap');
-      tbl.boolean('responsible_renters_course');
-      tbl.boolean('birth_cert_for_children');
-      tbl.boolean('child_enrolled_school');
-      tbl.boolean('childcare');
+      tbl.jsonb('completed_hfca');
+      tbl.jsonb('valid_driver');
+      tbl.jsonb('valid_social');
+      tbl.jsonb('dshs_wic_tanf_snap');
+      tbl.jsonb('responsible_renters_course');
+      tbl.jsonb('birth_cert_for_children');
+      tbl.jsonb('child_enrolled_school');
+      tbl.jsonb('childcare');
+    })
+    .createTable('contact_preferences', (tbl) => {
+      tbl.integer('client_id').notNullable();
       tbl.boolean('food_assistance');
       tbl.boolean('clothing_assistance');
       tbl.boolean('counseling_services');
@@ -109,14 +111,21 @@ exports.up = function (knex) {
       tbl.boolean('can_text_employment_opportunities');
       tbl.boolean('can_text_apartment_listings');
       tbl.boolean('can_text_career_fairs');
-      tbl.boolean('can_add_referrals');
-      tbl.string('referrals_name', 30);
-      tbl.string('referrals_address');
-      tbl.string('referrals_cell');
-      tbl.string('referrals_home');
-      tbl.string('referrals_work');
-      tbl.string('referrals_email', 35);
-      tbl.datetime('first_meeting_date'); // can we assume that the client and manager met before? ask jake!!!
+    })
+    .createTable('referrals', (tbl) => {
+      tbl.increments('referral_id').notNullable().unique();
+      tbl.integer('client_id').notNullable();
+      tbl.string('name');
+      tbl.string('street_address');
+      tbl.integer('apt');
+      tbl.string('city');
+      tbl.string('state');
+      tbl.integer('zip');
+      tbl.string('cell');
+      tbl.string('home');
+      tbl.string('work');
+      tbl.string('email');
+      tbl.date('first_meeting_date');
     })
     .createTable('goals', (tbl) => {
       tbl.increments().notNullable().unique();
@@ -144,6 +153,8 @@ exports.down = function (knex) {
   return knex.schema
     .dropTableIfExists('most_recent_employment')
     .dropTableIfExists('goals')
+    .dropTableIfExists('referrals')
+    .dropTableIfExists('contact_preferences')
     .dropTableIfExists('documents')
     .dropTableIfExists('insurance')
     .dropTableIfExists('finances')
