@@ -23,6 +23,9 @@ const indexRouter = require('./index/indexRouter');
 const profileRouter = require('./profile/profileRouter');
 const dsRouter = require('./dsService/dsRouter');
 const clientRouter = require('./client/clientRouter');
+const documentRouter = require('./documents/documentsRouter');
+const referralRouter = require('./referrals/referralRouter');
+const contactPreferencesRouter = require('./contact_preferences/contactPreferencesRouter');
 
 const app = express();
 
@@ -53,6 +56,9 @@ app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/data', dsRouter);
 app.use('/api/clients', clientRouter);
+app.use('/api/documents', documentRouter);
+app.use('/api/referrals', referralRouter);
+app.use('/api/contactpreferences', contactPreferencesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
