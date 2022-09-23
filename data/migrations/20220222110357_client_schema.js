@@ -70,6 +70,7 @@ exports.up = function (knex) {
       tbl.decimal('amount_of_medical_debt');
       tbl.decimal('amount_of_credit_card_debt');
       tbl.decimal('amount_of_auto_debt');
+      tbl.boolean('no_credit');
     })
     .createTable('insurance', (tbl) => {
       tbl.increments().notNullable().unique();
