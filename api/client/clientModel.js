@@ -13,12 +13,20 @@ const findById = async (id) => {
   return db('clients').where({ id }).first();
 };
 
+const findEducationHistoryByClientId = async (id) => {
+  return db('education_histories').where({"client_id": id}).first();
+};
+
 const remove = (id) => {
   return db('clients').where({ id }).del();
 };
 
 const update = (id, changes) => {
   return db('clients').where({ id }).update(changes, '*');
+};
+
+const updateEducationHistorybyClientId = (id, changes) => {
+  return db('education_histories').where({ "client_id":id }).update(changes, '*');
 };
 
 // FOR THE CLIENT NOTES ROUTES
@@ -71,4 +79,5 @@ module.exports = {
   insert,
   notesUpdate,
   updateDelete,
+  findEducationHistoryByClientId
 };
