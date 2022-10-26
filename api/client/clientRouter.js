@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Clients = require('./clientModel');
+const Household = require('../household/householdModel');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -272,21 +273,28 @@ router.delete('/:id/notes/:id', async (req, res) => {
 Intake Form Router
 */
 
-router.get('/intake', (req, res) => {
-  Clients.update(req.params.id)
-    .then((clients) => {
+router.get('/:id/intake', (req, res) => {
+  Clients.findById(req.params.id)
+    .then((client) => {
+      const household = Household.findById(client['household_id']);
+      const locations = Household.findLocationByHouseholdId(
+        client['household_id']
+      );
+      const gender = Household.findGenderById(client['gender_id']);
+      const race = Household.findRaceById(client['race_id']);
+      const ethnicity = Household.findEthnicityById(client['ethnicity_id']);
+      const output = client + household + locations + gender + race + ethnicity;
       res.status(200).json({
-        message: 'Hello World!'
+        output,
       });
     })
-    .catch (() => {
+    .catch(() => {
       res.status(500).json({
-        message: 'ERROR!'
-      })
-    })
-})
+        message: 'ERROR!',
+      });
+    });
+});
 
-
-router.get('')
+router.get('');
 
 module.exports = router;
