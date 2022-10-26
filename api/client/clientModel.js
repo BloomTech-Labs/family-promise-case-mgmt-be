@@ -60,6 +60,24 @@ function updateDelete(id) {
     });
 }
 
+// FOR CLIENT INTAKE ROUTES
+
+const updatePhoneNumbersByClientId = (id, changes) => {
+  return db('phone_numbers').where({ client_id: id }).update(changes, '*');
+};
+
+const updateEmailByClientId = (id, changes) => {
+  return db('email_addresses').where({ client_id: id }).update(changes, '*');
+};
+
+const updateEducationHistoryByClientId = (id, changes) => {
+  return db('education_histories').where({ client_id: id }).update(changes, '*');
+};
+
+const updateClientsByHouseholdId = (id, changes) => {
+  return db('clients').where({ household_id: id }).update(changes, '*');
+}; 
+
 module.exports = {
   add,
   findById,
@@ -71,4 +89,8 @@ module.exports = {
   insert,
   notesUpdate,
   updateDelete,
+  updatePhoneNumbersByClientId,
+  updateEmailByClientId,
+  updateEducationHistoryByClientId,
+  updateClientsByHouseholdId
 };

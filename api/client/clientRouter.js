@@ -272,4 +272,21 @@ router.delete('/:id/notes/:id', async (req, res) => {
 Intake Form Router
 */
 
+router.get('/intake', (req, res) => {
+  Clients.update(req.params.id)
+    .then((clients) => {
+      res.status(200).json({
+        message: 'Hello World!'
+      });
+    })
+    .catch (() => {
+      res.status(500).json({
+        message: 'ERROR!'
+      })
+    })
+})
+
+
+router.get('')
+
 module.exports = router;
