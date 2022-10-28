@@ -295,6 +295,88 @@ router.get('/:id/intake', (req, res) => {
     });
 });
 
+router.put('/:clientId/intake/gender', async (req, res) => {
+  const changes = req.body;
+  const gender_id = Clients.getGenderIdByInput(changes.genders);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, {
+      gender_id: gender_id,
+    });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.put('/:clientId/intake/races', async (req, res) => {
+  const changes = req.body;
+  const race_id = Clients.getRaceIdByInput(changes.races);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, { race_id: race_id });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.put('/:clientId/intake/ethnicities', async (req, res) => {
+  const changes = req.body;
+  const ethnicity_id = Clients.getEthnicityByInput(changes.ethnicities);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, {
+      ethnicity_id: ethnicity_id,
+    });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.put('/:clientId/intake/education_histories', async (req, res) => {
+  const changes = req.body;
+  const client_id = Clients.getEthnicityByInput(changes.education_histories);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, {
+      client_id: client_id,
+    });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
 router.get('');
 
 module.exports = router;

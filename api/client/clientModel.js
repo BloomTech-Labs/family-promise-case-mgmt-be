@@ -71,12 +71,30 @@ const updateEmailByClientId = (id, changes) => {
 };
 
 const updateEducationHistoryByClientId = (id, changes) => {
-  return db('education_histories').where({ client_id: id }).update(changes, '*');
+  return db('education_histories')
+    .where({ client_id: id })
+    .update(changes, '*');
 };
 
 const updateClientsByHouseholdId = (id, changes) => {
   return db('clients').where({ household_id: id }).update(changes, '*');
-}; 
+};
+
+const getGenderIdByInput = async (input) => {
+  return db('genders').where({ name: input }).first;
+};
+
+const getRaceIdByInput = async (input) => {
+  return db('races').where({ name: input }).first;
+};
+
+const getEthnicityByInput = async (input) => {
+  return db('ethnicities').where({ name: input }).first;
+};
+
+const getEducationHistoryByInput = async (input) => {
+  return db('education_histories').where({ client_id: input }).first;
+};
 
 module.exports = {
   add,
@@ -92,5 +110,9 @@ module.exports = {
   updatePhoneNumbersByClientId,
   updateEmailByClientId,
   updateEducationHistoryByClientId,
-  updateClientsByHouseholdId
+  updateClientsByHouseholdId,
+  getGenderIdByInput,
+  getRaceIdByInput,
+  getEthnicityByInput,
+  getEducationHistoryByInput,
 };
