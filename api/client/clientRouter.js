@@ -373,7 +373,7 @@ router.put('/:clientId/intake/education_histories', async (req, res) => {
       res.status(200).json(updatedClient);
     }
   } catch (error) {
-    res.status(500).json({ message: 'Client could not be modified' });
+    res.status(500).json({ message: 'Client could not be modified.' });
   }
 });
 
