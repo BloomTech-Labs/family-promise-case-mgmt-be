@@ -45,7 +45,7 @@ router.post('/sign_s3', (req, res) => {
 
 /**
  * @swagger
- * /sign_s3
+ * /sign_s3:
  *  post:
  *    description: Retrieve signed request from AWS
  *    summary: for uploading to s3 bucket
@@ -80,7 +80,7 @@ router.post('/:id/update', (req, res) => {
 
 /**
  * @swagger
- * /:id/update
+ * /{id}/update:
  *  post:
  *    description: Update existing document
  *    summary: for replacing an existing document with a new one
@@ -89,14 +89,13 @@ router.post('/:id/update', (req, res) => {
  *        description: a client's documents object
  *        content:
  *              example:
- *                - client_id: 1,
- *                  completed_hfca: {
- *                    name: 'fileName',
- *                    success: true,
- *                    url: 'url',
- *                    documentType: 'completed_hfca',
- *                    extension: 'pdf',
- *                  },
+ *                - client_id: 1
+ *                  completed_hfca:
+ *                    - name: 'fileName'
+ *                    success: true
+ *                    url: 'url'
+ *                    documentType: 'completed_hfca'
+ *                    extension: 'pdf'
  *                  valid_driver: {
  *                    name: 'fileName',
  *                    success: true,
@@ -285,7 +284,7 @@ router.post('/:id', (req, res) => {
 
 /**
  * @swagger
- * /:id
+ * /{id}:
  *  get:
  *    description: Delete a client's document
  *    summary: for removing a client's document
