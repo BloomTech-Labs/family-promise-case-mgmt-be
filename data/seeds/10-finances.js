@@ -16,6 +16,7 @@ exports.seed = function (knex) {
           amount_of_medical_debt: 3000,
           amount_of_credit_card_debt: 0,
           amount_of_auto_debt: 0,
+          no_credit: false,
         },
         {
           client_id: 2,
@@ -28,6 +29,7 @@ exports.seed = function (knex) {
           amount_of_medical_debt: 5000,
           amount_of_credit_card_debt: 0,
           amount_of_auto_debt: 0,
+          no_credit: false,
         },
         {
           client_id: 3,
@@ -40,6 +42,7 @@ exports.seed = function (knex) {
           amount_of_medical_debt: 6000,
           amount_of_credit_card_debt: 0,
           amount_of_auto_debt: 0,
+          no_credit: false,
         },
       ]);
     });
