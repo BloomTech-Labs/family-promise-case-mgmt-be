@@ -232,7 +232,7 @@ router.put('/:clientID/notes/:noteID', async (req, res) => {
  * @swagger
  * /{id}/notes/{id}:
  *  put:
- *    description: 'Deleting' client notes
+ *    description: Deleting client notes
  *    responses:
  *      200:
  *        description: a notes object
