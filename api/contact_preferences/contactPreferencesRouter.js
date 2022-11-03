@@ -17,7 +17,7 @@ router.get('/:client_id', (req, res) => {
 
 /**
  * @swagger
- * /:client_id
+ * /:client_id:
  *  get:
  *    description: Retrieve client's contact preferences
  *    summary: for seeing all client's contact preferences
@@ -79,7 +79,7 @@ router.post('/:client_id', (req, res) => {
 
 /**
  * @swagger
- * /:client_id
+ * /:client_id:
  *  post:
  *    description: Update client's contact preferences
  *    summary: for updating and creating client's contact preferences
