@@ -84,6 +84,8 @@ router.put(':id', (req, res) => {
  *  get:
  *    description: Returns a list of client notes
  *    summary: seeing all notes for the client in question
+ *    tags:
+ *      - client
  *    responses:
  *      200:
  *        description: array of notes
@@ -127,6 +129,8 @@ router.get('/:id/notes', (req, res) => {
  *  get:
  *    description: Find client notes by id
  *    summary: for seeing a single note details
+ *    tags:
+ *      - client
  *    responses:
  *      200:
  *        description: a notes object
@@ -161,6 +165,8 @@ router.get('/:id/notes/:id', (req, res) => {
  *  post:
  *    description: Add a new client note
  *    summary: creating new notes
+ *    tags:
+ *      - client
  *    responses:
  *      201:
  *        description: a notes object
@@ -192,7 +198,10 @@ router.post('/:id/notes', (req, res) => {
  * @swagger
  * /{id}/notes/{id}:
  *  put:
- *    description: Updating old notes
+ *    description: Updates a single client note
+ *    summary: for updating a single client note
+ *    tags:
+ *      - client
  *    responses:
  *      200:
  *        description: a notes object
@@ -233,6 +242,8 @@ router.put('/:clientID/notes/:noteID', async (req, res) => {
  * /{id}/notes/{id}:
  *  put:
  *    description: Deleting client notes
+ *    tags:
+ *      - client
  *    responses:
  *      200:
  *        description: a notes object
