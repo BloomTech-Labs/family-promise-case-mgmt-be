@@ -276,14 +276,28 @@ Intake Form Router
 router.get('/:id/intake', (req, res) => {
   Clients.findById(req.params.id)
     .then((client) => {
-      const household = Household.findById(client['household_id']);
+      const household = Household.findHouseholdbyId(client['household_id']);
       const locations = Household.findLocationByHouseholdId(
         client['household_id']
       );
-      const gender = Household.findGenderById(client['gender_id']);
-      const race = Household.findRaceById(client['race_id']);
-      const ethnicity = Household.findEthnicityById(client['ethnicity_id']);
-      const output = client + household + locations + gender + race + ethnicity;
+      const gender = Clients.getGenderIdByClientId(req.params.id);
+      const race = Clients.getRaceIdByClientId(req.params.id);
+      const ethnicity = Clients.getEthnicityByClientId(req.params.id);
+      const phone_numbers = Clients.getPhoneNumbersByClientId(req.params.id);
+      const email_addresses = Clients.getEmailByClientId(req.params.id);
+      const education_histories = Clients.getEducationHistoryByClientId(
+        req.params.id
+      );
+      const output =
+        client +
+        household +
+        locations +
+        gender +
+        race +
+        ethnicity +
+        phone_numbers +
+        email_addresses +
+        education_histories;
       res.status(200).json({
         output,
       });
