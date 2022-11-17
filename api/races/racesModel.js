@@ -1,20 +1,20 @@
 const db = require('../../data/db-config');
 
-const add = async (newGender) => {
-  const [id] = await db('genders').insert(newGender);
+const add = async (newRace) => {
+  const [id] = await db('races').insert(newRace);
   return findById(id);
 };
 
 const findAll = () => {
-  return db('genders');
+  return db('races');
 };
 
 const findById = async (id) => {
-  return db('genders').where({ id }).first();
+  return db('races').where({ id }).first();
 };
 
 const getIdbyName = async (name) => {
-  return db('genders').select('gender_id').where({ name: name }).first();
+  return db('races').select('race_id').where({ name: name }).first();
 };
 
 module.exports = {
