@@ -23,7 +23,6 @@ const update = (id, changes) => {
 
 // FOR THE CLIENT NOTES ROUTES
 function get(client_id) {
-  console.log('model working?');
   return db('client_notes').where({ client_id }).orderBy('created_at', 'desc');
 }
 
@@ -76,10 +75,6 @@ const updateEducationHistoryByClientId = (id, changes) => {
     .update(changes, '*');
 };
 
-const updateClientsByHouseholdId = (id, changes) => {
-  return db('clients').where({ household_id: id }).update(changes, '*');
-};
-
 const getGenderIdByInput = async (input) => {
   return db('genders').where({ name: input }).first;
 };
@@ -92,8 +87,16 @@ const getEthnicityByInput = async (input) => {
   return db('ethnicities').where({ name: input }).first;
 };
 
-const getEducationHistoryByInput = async (input) => {
-  return db('education_histories').where({ client_id: input }).first;
+const getEducationHistoryByClientId = async (id) => {
+  return db('education_histories').where({ client_id: id }).first;
+};
+
+const getPhoneNumbersByClientId = async (id) => {
+  return db('phone_numbers').where({ client_id: id }).first;
+};
+
+const getEmailByClientId = async (id) => {
+  return db('email_addresses').where({ client_id: id }).first;
 };
 
 module.exports = {
@@ -110,9 +113,10 @@ module.exports = {
   updatePhoneNumbersByClientId,
   updateEmailByClientId,
   updateEducationHistoryByClientId,
-  updateClientsByHouseholdId,
   getGenderIdByInput,
   getRaceIdByInput,
   getEthnicityByInput,
-  getEducationHistoryByInput,
+  getEducationHistoryByClientId,
+  getPhoneNumbersByClientId,
+  getEmailByClientId,
 };
