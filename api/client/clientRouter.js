@@ -2,6 +2,8 @@ const router = require('express').Router();
 const Clients = require('./clientModel');
 const Household = require('../household/householdModel');
 const Gender = require('../genders/gendersModel');
+const Race = require('../races/racesModel');
+const Ethnicity = require('../ethnicities/ethnicitiesModel');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -331,8 +333,7 @@ router.put('/:clientId/intake/gender', async (req, res) => {
 });
 
 router.put('/:clientId/intake/races', async (req, res) => {
-  const changes = req.body;
-  const race_id = Clients.getRaceIdByInput(changes.races);
+  const race_id = Race.getIdbyName(req.body.race);
   const { clientID } = req.params;
   try {
     const updatedClient = await Clients.update(clientID, { race_id: race_id });
@@ -350,8 +351,7 @@ router.put('/:clientId/intake/races', async (req, res) => {
 });
 
 router.put('/:clientId/intake/ethnicities', async (req, res) => {
-  const changes = req.body;
-  const ethnicity_id = Clients.getEthnicityByInput(changes.ethnicities);
+  const ethnicity_id = Ethnicity.getIdbyName(req.body.ethnicity);
   const { clientID } = req.params;
   try {
     const updatedClient = await Clients.update(clientID, {
