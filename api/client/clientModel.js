@@ -75,16 +75,16 @@ const updateEducationHistoryByClientId = (id, changes) => {
     .update(changes, '*');
 };
 
-const getGenderIdByInput = async (input) => {
-  return db('genders').where({ name: input }).first;
+const getGenderIdByClientId = async (id) => {
+  return db('genders').where({ client_id: id }).first;
 };
 
-const getRaceIdByInput = async (input) => {
-  return db('races').where({ name: input }).first;
+const getRaceIdByClientId = async (id) => {
+  return db('races').where({ client_id: id }).first;
 };
 
-const getEthnicityByInput = async (input) => {
-  return db('ethnicities').where({ name: input }).first;
+const getEthnicityByClientId = async (id) => {
+  return db('ethnicities').where({ client_id: id }).first;
 };
 
 const getEducationHistoryByClientId = async (id) => {
@@ -113,9 +113,9 @@ module.exports = {
   updatePhoneNumbersByClientId,
   updateEmailByClientId,
   updateEducationHistoryByClientId,
-  getGenderIdByInput,
-  getRaceIdByInput,
-  getEthnicityByInput,
+  getGenderIdByClientId,
+  getRaceIdByClientId,
+  getEthnicityByClientId,
   getEducationHistoryByClientId,
   getPhoneNumbersByClientId,
   getEmailByClientId,
