@@ -4,6 +4,7 @@ const Household = require('../household/householdModel');
 const Gender = require('../genders/gendersModel');
 const Race = require('../races/racesModel');
 const Ethnicity = require('../ethnicities/ethnicitiesModel');
+const EducationHistory = require('../education_histories/educationHistoriesModel');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -370,27 +371,16 @@ router.put('/:clientId/intake/ethnicities', async (req, res) => {
   }
 });
 
-router.put('/:clientId/intake/education_histories', async (req, res) => {
-  const changes = req.body;
-  const client_id = Clients.getEthnicityByInput(changes.education_histories);
-  const { clientID } = req.params;
-  try {
-    const updatedClient = await Clients.update(clientID, {
-      client_id: client_id,
+router.post('/:id/intake/education_history', (req, res) => {
+  EducationHistory.add(req.body)
+    .then((education_history) => {
+      console.log('New education history added:', education_history);
+      res.status(201).json(education_history);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding client note' });
     });
-    console.log(updatedClient);
-    if (!updatedClient) {
-      res.status(404).json({
-        message: 'The client with the specified ID does not exist',
-      });
-    } else {
-      res.status(200).json(updatedClient);
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Client could not be modified.' });
-  }
 });
-
-router.get('');
 
 module.exports = router;
