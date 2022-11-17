@@ -5,6 +5,8 @@ const Gender = require('../genders/gendersModel');
 const Race = require('../races/racesModel');
 const Ethnicity = require('../ethnicities/ethnicitiesModel');
 const EducationHistory = require('../education_histories/educationHistoriesModel');
+const EmailAddress = require('../email_addresses/emailAddressesModel');
+const PhoneNumber = require('../phone_numbers/phoneNumbersModel');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -379,7 +381,31 @@ router.post('/:id/intake/education_history', (req, res) => {
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).json({ message: 'Error adding client note' });
+      res.status(500).json({ message: 'Error adding education history' });
+    });
+});
+
+router.post('/:id/intake/phone_number', (req, res) => {
+  PhoneNumber.add(req.body)
+    .then((phone_number) => {
+      console.log('New phone number added:', phone_number);
+      res.status(201).json(phone_number);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding phone number' });
+    });
+});
+
+router.post('/:id/intake/email_address', (req, res) => {
+  EmailAddress.add(req.body)
+    .then((email_address) => {
+      console.log('New email address added:', email_address);
+      res.status(201).json(email_address);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding email address' });
     });
 });
 
