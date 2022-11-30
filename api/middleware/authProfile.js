@@ -1,7 +1,5 @@
 const createError = require('http-errors');
 const Profiles = require('../profile/profileModel');
-// const jwt = require('express-jwt');
-// const auth0Config = require('../../config/auth0');
 
 const makeProfileObj = (claims) => {
   return {
