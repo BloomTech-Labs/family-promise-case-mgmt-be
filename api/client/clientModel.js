@@ -23,7 +23,6 @@ const update = (id, changes) => {
 
 // FOR THE CLIENT NOTES ROUTES
 function get(client_id) {
-  console.log('model working?');
   return db('client_notes').where({ client_id }).orderBy('created_at', 'desc');
 }
 
@@ -60,6 +59,46 @@ function updateDelete(id) {
     });
 }
 
+// FOR CLIENT INTAKE ROUTES
+
+const updatePhoneNumbersByClientId = (id, changes) => {
+  return db('phone_numbers').where({ client_id: id }).update(changes, '*');
+};
+
+const updateEmailByClientId = (id, changes) => {
+  return db('email_addresses').where({ client_id: id }).update(changes, '*');
+};
+
+const updateEducationHistoryByClientId = (id, changes) => {
+  return db('education_histories')
+    .where({ client_id: id })
+    .update(changes, '*');
+};
+
+const getGenderIdByClientId = async (id) => {
+  return db('genders').where({ client_id: id }).first;
+};
+
+const getRaceIdByClientId = async (id) => {
+  return db('races').where({ client_id: id }).first;
+};
+
+const getEthnicityByClientId = async (id) => {
+  return db('ethnicities').where({ client_id: id }).first;
+};
+
+const getEducationHistoryByClientId = async (id) => {
+  return db('education_histories').where({ client_id: id }).first;
+};
+
+const getPhoneNumbersByClientId = async (id) => {
+  return db('phone_numbers').where({ client_id: id }).first;
+};
+
+const getEmailByClientId = async (id) => {
+  return db('email_addresses').where({ client_id: id }).first;
+};
+
 module.exports = {
   add,
   findById,
@@ -71,4 +110,13 @@ module.exports = {
   insert,
   notesUpdate,
   updateDelete,
+  updatePhoneNumbersByClientId,
+  updateEmailByClientId,
+  updateEducationHistoryByClientId,
+  getGenderIdByClientId,
+  getRaceIdByClientId,
+  getEthnicityByClientId,
+  getEducationHistoryByClientId,
+  getPhoneNumbersByClientId,
+  getEmailByClientId,
 };

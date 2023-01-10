@@ -1,5 +1,12 @@
 const router = require('express').Router();
 const Clients = require('./clientModel');
+const Household = require('../household/householdModel');
+const Gender = require('../genders/gendersModel');
+const Race = require('../races/racesModel');
+const Ethnicity = require('../ethnicities/ethnicitiesModel');
+const EducationHistory = require('../education_histories/educationHistoriesModel');
+const EmailAddress = require('../email_addresses/emailAddressesModel');
+const PhoneNumber = require('../phone_numbers/phoneNumbersModel');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -277,6 +284,140 @@ router.delete('/:id/notes/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Client note could not be modified' });
   }
+});
+
+/*
+Intake Form Router
+*/
+
+router.get('/:id/intake', (req, res) => {
+  Clients.findById(req.params.id)
+    .then((client) => {
+      const household = Household.findHouseholdbyId(client['household_id']);
+      const locations = Household.findLocationByHouseholdId(
+        client['household_id']
+      );
+      const gender = Clients.getGenderIdByClientId(req.params.id);
+      const race = Clients.getRaceIdByClientId(req.params.id);
+      const ethnicity = Clients.getEthnicityByClientId(req.params.id);
+      const phone_numbers = Clients.getPhoneNumbersByClientId(req.params.id);
+      const email_addresses = Clients.getEmailByClientId(req.params.id);
+      const education_histories = Clients.getEducationHistoryByClientId(
+        req.params.id
+      );
+      const output =
+        client +
+        household +
+        locations +
+        gender +
+        race +
+        ethnicity +
+        phone_numbers +
+        email_addresses +
+        education_histories;
+      res.status(200).json({
+        output,
+      });
+    })
+    .catch(() => {
+      res.status(500).json({
+        message: 'ERROR!',
+      });
+    });
+});
+
+router.put('/:clientId/intake/gender', async (req, res) => {
+  const gender_id = Gender.getIdbyName(req.body.gender);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, {
+      gender_id: gender_id,
+    });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.put('/:clientId/intake/races', async (req, res) => {
+  const race_id = Race.getIdbyName(req.body.race);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, { race_id: race_id });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.put('/:clientId/intake/ethnicities', async (req, res) => {
+  const ethnicity_id = Ethnicity.getIdbyName(req.body.ethnicity);
+  const { clientID } = req.params;
+  try {
+    const updatedClient = await Clients.update(clientID, {
+      ethnicity_id: ethnicity_id,
+    });
+    console.log(updatedClient);
+    if (!updatedClient) {
+      res.status(404).json({
+        message: 'The client with the specified ID does not exist',
+      });
+    } else {
+      res.status(200).json(updatedClient);
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Client could not be modified' });
+  }
+});
+
+router.post('/:id/intake/education_history', (req, res) => {
+  EducationHistory.add(req.body)
+    .then((education_history) => {
+      console.log('New education history added:', education_history);
+      res.status(201).json(education_history);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding education history' });
+    });
+});
+
+router.post('/:id/intake/phone_number', (req, res) => {
+  PhoneNumber.add(req.body)
+    .then((phone_number) => {
+      console.log('New phone number added:', phone_number);
+      res.status(201).json(phone_number);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding phone number' });
+    });
+});
+
+router.post('/:id/intake/email_address', (req, res) => {
+  EmailAddress.add(req.body)
+    .then((email_address) => {
+      console.log('New email address added:', email_address);
+      res.status(201).json(email_address);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: 'Error adding email address' });
+    });
 });
 
 module.exports = router;
