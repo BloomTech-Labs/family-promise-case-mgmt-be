@@ -7,6 +7,7 @@ const Ethnicity = require('../ethnicities/ethnicitiesModel');
 const EducationHistory = require('../education_histories/educationHistoriesModel');
 const EmailAddress = require('../email_addresses/emailAddressesModel');
 const PhoneNumber = require('../phone_numbers/phoneNumbersModel');
+const authRequired = require('../middleware/authRequired');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -114,12 +115,10 @@ router.put(':id', (req, res) => {
  *        message: 'Error retrieving client notes'
  */
 
-router.get('/:id/notes', (req, res) => {
+router.get('/:id/notes', authRequired, (req, res) => {
   const { id } = req.params;
-  console.log('working notes?');
   Clients.get(id)
     .then((note) => {
-      console.log(note);
       res.status(200).json(note);
     })
     .catch((error) => {
