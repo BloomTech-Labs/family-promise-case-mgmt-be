@@ -24,6 +24,7 @@ const verifyJwt = jwt({
 
 //exporting the verifyjwt method as a middleware to be used in app.js server file against all routes except what is in the exception array in above method
 const authRequired = (req, res, next) => {
+  console.log(req);
   verifyJwt(req, res, next);
 };
 
