@@ -1,7 +1,7 @@
 const express = require('express');
-const authRequired = require('../middleware/authRequired');
 const Profiles = require('./profileModel');
 const router = express.Router();
+const { authRequired } = require('../middleware/auth0Middleware');
 
 /**
  * @swagger
@@ -159,7 +159,7 @@ router.get('/:id', authRequired, function (req, res) {
  *                profile:
  *                  $ref: '#/components/schemas/Profile'
  */
-router.post('/', authRequired, async (req, res) => {
+router.post('/', async (req, res) => {
   const profile = req.body;
   if (profile) {
     const id = profile.id || 0;
@@ -218,7 +218,7 @@ router.post('/', authRequired, async (req, res) => {
  *                profile:
  *                  $ref: '#/components/schemas/Profile'
  */
-router.put('/', authRequired, (req, res) => {
+router.put('/', (req, res) => {
   const profile = req.body;
   if (profile) {
     const id = profile.id || 0;

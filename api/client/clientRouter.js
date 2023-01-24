@@ -116,10 +116,8 @@ router.put(':id', (req, res) => {
 
 router.get('/:id/notes', (req, res) => {
   const { id } = req.params;
-  console.log('working notes?');
   Clients.get(id)
     .then((note) => {
-      console.log(note);
       res.status(200).json(note);
     })
     .catch((error) => {
