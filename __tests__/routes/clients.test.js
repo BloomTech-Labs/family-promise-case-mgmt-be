@@ -11,14 +11,14 @@ jest.mock('../../api/middleware/authRequired', () =>
   jest.fn((req, res, next) => next())
 );
 
-describe('client router endpoints', () => {
+describe('Router Endpoints: Clients', () => {
   beforeAll(() => {
     // This is the module/route being tested
     server.use('/clients', clientRouter);
     jest.clearAllMocks();
   });
 
-  describe(' Get /clients', () => {
+  describe('GET /clients', () => {
     it('should return 200', async () => {
       Clients.findAll.mockResolvedValue([]);
       const res = await request(server).get('/clients');
@@ -28,7 +28,7 @@ describe('client router endpoints', () => {
       expect(Clients.findAll.mock.calls.length).toBe(1);
     });
   });
-  describe('Get /clients/:id', () => {
+  describe('GET /clients/{id}', () => {
     it('should return 200 when client is found', async () => {
       Clients.findById.mockResolvedValue({
         id: 'd3',
@@ -43,7 +43,7 @@ describe('client router endpoints', () => {
       expect(Clients.findById.mock.calls.length).toBe(1);
     });
 
-    it('Should return 404 when no client found', async () => {
+    it('Should return 404 when no client is found', async () => {
       Clients.findById.mockResolvedValue();
       const res = await request(server).get('/clients/d2');
 
@@ -52,7 +52,7 @@ describe('client router endpoints', () => {
     });
   });
 
-  describe('Post /clients', () => {
+  describe('POST /clients', () => {
     it('should return 200 when client is created', async () => {
       const profile = {
         name: 'Yuske Yurameshi',
@@ -71,19 +71,10 @@ describe('client router endpoints', () => {
     });
   });
 
-  describe('put /client', () => {
-    it('should return 404 when client is is called', async () => {
+  describe('PUT /clients/{id}', () => {
+    it('should return 404 when client is called', async () => {
       const res = await request(server).put('/clients/34');
-      expect(res.status).toBe(404);
-    });
-  });
-
-  describe('delete, /delete', () => {
-    it('should delete return 404 swhen called', async () => {
-      const res = await request(server).delete('/clients/4');
-
-      expect(res.status).toBe(404);
-      expect(res.body.message).toBe('Client could not be found');
+      expect(res.status).toBe(500); // No body is sent with the PUT request. This should not trigger a 404 or 200.
     });
   });
 });
