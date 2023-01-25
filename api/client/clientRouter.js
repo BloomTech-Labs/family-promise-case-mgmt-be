@@ -45,25 +45,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  Clients.remove(req.params.id)
-    .then((count) => {
-      if (count > 0) {
-        res.status(200).json({
-          message: 'Client has been removed',
-        });
-      } else {
-        res.status(404).json({
-          message: 'Client could not be found',
-        });
-      }
-    })
-    .catch(() => {
-      res.status(500).json({ message: 'internal server error' });
-    });
-});
-
-router.put(':id', (req, res) => {
+router.put('/:id', (req, res) => {
   const changes = req.body;
   Clients.updates(req.params.id, changes)
     .then((clients) => {
