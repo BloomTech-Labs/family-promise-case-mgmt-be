@@ -3,6 +3,18 @@ const express = require('express');
 const Clients = require('../../api/client/clientModel');
 const clientRouter = require('../../api/client/clientRouter');
 const server = express();
+const noteObject = {
+  id: '1',
+  client_id: 'd3',
+  message: 'This is a note',
+  created_by: 'bob smith',
+  created_at: '02/22/2222 @13:55',
+};
+const noteObject2 = {
+  ...noteObject,
+  id: '2',
+};
+
 server.use(express.json());
 
 jest.mock('../../api/client/clientModel');
@@ -38,8 +50,6 @@ describe('Router Endpoints: Clients', () => {
       const res = await request(server).get('/clients/d2');
 
       expect(res.status).toBe(200);
-      // need migrations to test
-      // expect(res.body.name).toBe('bob smith')
       expect(Clients.findById.mock.calls.length).toBe(1);
     });
 
@@ -75,6 +85,67 @@ describe('Router Endpoints: Clients', () => {
     it('should return 404 when client is called', async () => {
       const res = await request(server).put('/clients/34');
       expect(res.status).toBe(500); // No body is sent with the PUT request. This should not trigger a 404 or 200.
+    });
+  });
+
+  describe('Notes Routes', () => {
+    describe('GET /clients/{id}/notes', () => {
+      it('should return 200 with client notes', async () => {
+        Clients.get.mockResolvedValue([noteObject, noteObject2]);
+        const res = await request(server).get('/clients/d3/notes');
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBe(2);
+      });
+    });
+    describe('GET /clients/{id}/notes/{noteId}', () => {
+      it('should return 200 with specified note', async () => {
+        Clients.getById.mockResolvedValue([noteObject]);
+        const res = await request(server).get('/clients/d3/notes/1');
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBe(1);
+      });
+    });
+    describe('POST /clients/{id}/notes', () => {
+      jest.spyOn(global.console, 'log').mockImplementation(() => {});
+
+      it('should return 201 and insert note', async () => {
+        Clients.insert.mockResolvedValue([noteObject]);
+        const res = await request(server).post('/clients/d3/notes');
+        expect(res.status).toBe(201);
+        expect(res.body.length).toBe(1);
+      });
+    });
+    describe('PUT /clients/{id}/notes/{noteId}', () => {
+      it('should return 200 and update note', async () => {
+        Clients.notesUpdate.mockResolvedValue([noteObject]);
+        const res = await request(server).put('/clients/d3/notes/1');
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBe(1);
+      });
+      it('should return 404 when note is not found', async () => {
+        Clients.notesUpdate.mockResolvedValue();
+        const res = await request(server).put('/clients/d3/notes/1');
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBe(
+          'The client note with the specified ID does not exist'
+        );
+      });
+    });
+    describe('DELETE /clients/{id}/notes/{noteId}', () => {
+      it('should return 200 and delete note', async () => {
+        Clients.updateDelete.mockResolvedValue([noteObject]);
+        const res = await request(server).delete('/clients/d3/notes/1');
+        expect(res.status).toBe(200);
+        expect(res.body.length).toBe(1);
+      });
+      it('should return 404 when note is not found', async () => {
+        Clients.notesUpdate.mockResolvedValue();
+        const res = await request(server).put('/clients/d3/notes/1');
+        expect(res.status).toBe(404);
+        expect(res.body.message).toBe(
+          'The client note with the specified ID does not exist'
+        );
+      });
     });
   });
 });
