@@ -2,7 +2,7 @@ const request = require('supertest');
 // Full app so we can test the 404
 const server = require('../../api/app.js');
 
-describe('index router endpoints', () => {
+describe('Router Endpoints: Index', () => {
   beforeAll(() => {});
 
   describe('GET /', () => {

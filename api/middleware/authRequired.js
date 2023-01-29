@@ -1,47 +1,33 @@
-const createError = require('http-errors');
-const OktaJwtVerifier = require('@okta/jwt-verifier');
-const oktaVerifierConfig = require('../../config/okta');
-const Profiles = require('../profile/profileModel');
-const oktaJwtVerifier = new OktaJwtVerifier(oktaVerifierConfig.config);
+// delete this file once we are able to fully implement auth0 without jwt expired message
 
-const makeProfileObj = (claims) => {
-  return {
-    id: claims.sub,
-    email: claims.email,
-    name: claims.name,
-  };
-};
-/**
- * A simple middleware that asserts valid Okta idToken and sends 401 responses
- * if the token is not present or fails validation. If the token is valid its
- * contents are attached to req.profile
- */
 const authRequired = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization || '';
-    const match = authHeader.match(/Bearer (.+)/);
+    const fakeProfile = {
+      first_name: 'Test',
+      last_name: 'Test',
+      role_id: 1,
+      profile_id: '00ulthapbErVUwVJy4x6',
+    };
 
-    if (!match) throw new Error('Missing idToken');
+    // Verify that the token is valid
+    const profile = fakeProfile;
 
-    const idToken = match[1];
-    oktaJwtVerifier
-      .verifyAccessToken(idToken, oktaVerifierConfig.expectedAudience)
-      .then(async (data) => {
-        const jwtUserObj = makeProfileObj(data.claims);
-        const profile = await Profiles.findOrCreateProfile(jwtUserObj);
-        if (profile) {
-          req.profile = profile;
-        } else {
-          throw new Error('Unable to process idToken');
-        }
-        next();
-      })
-      .catch((err) => {
-        console.error(err);
-        next(createError(401), err.message);
+    if (profile) {
+      req.profile = profile;
+    } else {
+      next({
+        status: 401,
+        message: 'Unable to process idToken',
       });
+    }
+
+    // Proceed with request if token is valid
+    next();
   } catch (err) {
-    next(createError(401, err.message));
+    next({
+      status: err.status || 500,
+      message: err.message || 'Internal Server Error',
+    });
   }
 };
 

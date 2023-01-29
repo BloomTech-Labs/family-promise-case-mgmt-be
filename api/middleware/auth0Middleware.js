@@ -15,7 +15,7 @@ const verifyJwt = jwt({
   issuer: config.issuer,
   algorithms: ['RS256'],
   requestProperty: 'auth0User',
-}).unless({ path: ['/'] });
+}).unless({ path: ['/', /^\/application\/.*/] });
 //************ */
 //in the above line add all public endpoints (routes with no need for auth) as a string inside the path array [] <=
 // **** IMPORTANT note: if your public endpoint has descendent end points (ex.: ./yourRouterEndPoint/:user_id) you need ot use regex as in the following example:
@@ -24,6 +24,7 @@ const verifyJwt = jwt({
 
 //exporting the verifyjwt method as a middleware to be used in app.js server file against all routes except what is in the exception array in above method
 const authRequired = (req, res, next) => {
+  console.log(req);
   verifyJwt(req, res, next);
 };
 
