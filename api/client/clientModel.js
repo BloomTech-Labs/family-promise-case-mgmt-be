@@ -99,7 +99,37 @@ const getEmailByClientId = async (id) => {
   return db('email_addresses').where({ client_id: id }).first;
 };
 
+//FOR CLIENT PLACEHOLDER DOCUMENTS//
+const getAllfinances = async () => {
+  return db('finances');
+};
+const getAllInsurance = async () => {
+  return db('insurance');
+};
+const getAllDocuments = async () => {
+  return db('documents');
+};
+const getAllContactPrefs = async () => {
+  return db('contact_preferences');
+};
+const getAllReferrals = async () => {
+  return db('referrals');
+};
+const getAllGoals = async () => {
+  return db('goals');
+};
+const getAllMostRecentEmploy = async () => {
+  return db('most_recent_employment');
+};
+
 module.exports = {
+  getAllReferrals,
+  getAllMostRecentEmploy,
+  getAllGoals,
+  getAllfinances,
+  getAllContactPrefs,
+  getAllDocuments,
+  getAllInsurance,
   add,
   findById,
   findAll,

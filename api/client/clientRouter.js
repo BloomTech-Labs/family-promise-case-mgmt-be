@@ -7,7 +7,7 @@ const Ethnicity = require('../ethnicities/ethnicitiesModel');
 const EducationHistory = require('../education_histories/educationHistoriesModel');
 const EmailAddress = require('../email_addresses/emailAddressesModel');
 const PhoneNumber = require('../phone_numbers/phoneNumbersModel');
-
+const PlaceHolder = require('./clientModel');
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
     .then((clients) => {
@@ -17,6 +17,39 @@ router.get('/', (req, res) => {
     .catch(() => {
       res.status(500).json({ message: 'internal server error' });
     });
+});
+
+router.get('/placeholder', async (req, res) => {
+  try {
+    const [
+      finances,
+      insurance,
+      documents,
+      contact_preferences,
+      referrals,
+      goals,
+      most_recent_employment,
+    ] = await Promise.all([
+      PlaceHolder.getAllfinances(req.query),
+      PlaceHolder.getAllInsurance(req.query),
+      PlaceHolder.getAllDocuments(req.query),
+      PlaceHolder.getAllContactPrefs(req.query),
+      PlaceHolder.getAllReferrals(req.query),
+      PlaceHolder.getAllGoals(req.query),
+      PlaceHolder.getAllMostRecentEmploy(req.query),
+    ]);
+    res.status(200).json({
+      finances,
+      insurance,
+      documents,
+      contact_preferences,
+      referrals,
+      goals,
+      most_recent_employment,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'internal server error' });
+  }
 });
 
 router.get('/:id', (req, res) => {
