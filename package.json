@@ -8,7 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon",
     "watch:dev": "nodemon",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
