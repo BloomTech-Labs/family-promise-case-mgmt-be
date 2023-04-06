@@ -7,6 +7,7 @@ const Ethnicity = require('../ethnicities/ethnicitiesModel');
 const EducationHistory = require('../education_histories/educationHistoriesModel');
 const EmailAddress = require('../email_addresses/emailAddressesModel');
 const PhoneNumber = require('../phone_numbers/phoneNumbersModel');
+const { Clients } = require('knex');
 
 router.get('/', (req, res) => {
   Clients.findAll(req.query)
@@ -266,45 +267,59 @@ router.delete('/:id/notes/:id', async (req, res) => {
   }
 });
 
-/*
-Intake Form Router
-*/
 
-router.get('/:id/intake', (req, res) => {
-  Clients.findById(req.params.id)
-    .then((client) => {
-      const household = Household.findHouseholdbyId(client['household_id']);
-      const locations = Household.findLocationByHouseholdId(
-        client['household_id']
-      );
-      const gender = Clients.getGenderIdByClientId(req.params.id);
-      const race = Clients.getRaceIdByClientId(req.params.id);
-      const ethnicity = Clients.getEthnicityByClientId(req.params.id);
-      const phone_numbers = Clients.getPhoneNumbersByClientId(req.params.id);
-      const email_addresses = Clients.getEmailByClientId(req.params.id);
-      const education_histories = Clients.getEducationHistoryByClientId(
-        req.params.id
-      );
-      const output =
-        client +
-        household +
-        locations +
-        gender +
-        race +
-        ethnicity +
-        phone_numbers +
-        email_addresses +
-        education_histories;
-      res.status(200).json({
-        output,
-      });
-    })
-    .catch(() => {
-      res.status(500).json({
-        message: 'ERROR!',
-      });
+//INTAKE GET ROUTER
+
+router.get('/:id/intake', async (req, res) => {
+  try {
+    const client = await Clients.getById(req.params.id);
+    const { ethnicity_id, gender_id, race_id, education_history, phone_numbers, email_addresses } = client;
+
+    const ethnicity = await Clients.getEthnicityById(ethnicity_id);
+    const genderId = await Clients.getGenderIdById(gender_id);
+    const raceId = await Clients.getRaceIdById(race_id);
+    const educationHistory = await Clients.getEducationHistoryById(education_history);
+    const phoneNumbers = await Clients.getPhoneNumbersById(phone_numbers);
+    const email = await Clients.getEmailById(email_addresses);
+    const medicare = await Clients.getMedicareById(client.medicare_number);
+    const medicareDate = await Clients.getMedicareDateById(client.medicare_effective_date);
+    const medicaidNumber = await Clients.getMedicaidNumberById(client.medicaid_number);
+    const medicaidDate = await Clients.getMedicaidDateById(client.medicaid_effective_date);
+    const medicaidExpDate = await Clients.getMedicaidExpDateById(client.medicaid_expiration_date);
+    const privateInsuranceCompany = await Clients.getPrivateInsuranceCompanyById(client.private_insurance_company);
+    const privateInsuranceGroupNumber = await Clients.getPrivateInsuranceGroupNumberById(client.private_insurance_group_number);
+    const privateInsuranceSubscriberNumber = await Clients.getPrivateInsuranceSubscriberNumberById(client.private_insurance_subscriber_number);
+    const privateInsuranceEffectiveDate = await Clients.getPrivateInsuranceEffectiveDateById(client.private_insurance_effective_date);
+    const privateInsuranceExpDate = await Clients.getPrivateInsuranceExpDateById(client.private_insurance_expiration_date);
+    const otherCoverage = await Clients.getOtherCoverageById(client.other_coverage);
+    const otherAgencies = await Clients.getOtherAgenciesById(client.other_agencies);
+
+    res.json({
+      genderId,
+      raceId,
+      ethnicity,
+      educationHistory,
+      phoneNumbers,
+      email,
+      medicare,
+      medicareDate,
+      medicaidNumber,
+      medicaidDate,
+      medicaidExpDate,
+      privateInsuranceCompany,
+      privateInsuranceGroupNumber,
+      privateInsuranceSubscriberNumber,
+      privateInsuranceEffectiveDate,
+      privateInsuranceExpDate,
+      otherCoverage,
+      otherAgencies
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 });
+
 
 router.put('/:clientId/intake/gender', async (req, res) => {
   const gender_id = Gender.getIdbyName(req.body.gender);
@@ -364,6 +379,8 @@ router.put('/:clientId/intake/ethnicities', async (req, res) => {
   }
 });
 
+
+
 router.post('/:id/intake/education_history', (req, res) => {
   EducationHistory.add(req.body)
     .then((education_history) => {
@@ -399,5 +416,6 @@ router.post('/:id/intake/email_address', (req, res) => {
       res.status(500).json({ message: 'Error adding email address' });
     });
 });
+
 
 module.exports = router;

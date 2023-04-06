@@ -22,8 +22,8 @@ const update = (id, changes) => {
 };
 
 // FOR THE CLIENT NOTES ROUTES
-function get(client_id) {
-  return db('client_notes').where({ client_id }).orderBy('created_at', 'desc');
+function get(id) {
+  return db('client_notes').where({ id }).orderBy('created_at', 'desc');
 }
 
 function getById(id) {
@@ -61,43 +61,100 @@ function updateDelete(id) {
 
 // FOR CLIENT INTAKE ROUTES
 
-const updatePhoneNumbersByClientId = (id, changes) => {
-  return db('phone_numbers').where({ client_id: id }).update(changes, '*');
+const updatePhoneNumbersById = (id, changes) => {
+  return db('phone_numbers').where({ id: id }).update(changes, '*');
 };
 
-const updateEmailByClientId = (id, changes) => {
-  return db('email_addresses').where({ client_id: id }).update(changes, '*');
+const updateEmailById = (id, changes) => {
+  return db('email_addresses').where({ id: id }).update(changes, '*');
 };
 
-const updateEducationHistoryByClientId = (id, changes) => {
+const updateEducationHistoryById = (id, changes) => {
   return db('education_histories')
-    .where({ client_id: id })
+    .where({ id: id })
     .update(changes, '*');
 };
 
-const getGenderIdByClientId = async (id) => {
-  return db('genders').where({ client_id: id }).first;
+const updateInsuranceById = (id, changes) => {
+  return db('insurace').where({ id: id }).update(changes, '*');
+}
+
+
+
+const getGenderIdById = async (id) => {
+  return db('genders').where({ id: id }).first;
 };
 
-const getRaceIdByClientId = async (id) => {
-  return db('races').where({ client_id: id }).first;
+const getRaceIdById = async (id) => {
+  return db('races').where({ id: id }).first;
 };
 
-const getEthnicityByClientId = async (id) => {
-  return db('ethnicities').where({ client_id: id }).first;
+const getEthnicityById = async (id) => {
+  return db('ethnicities').where({ id: id }).first;
 };
 
-const getEducationHistoryByClientId = async (id) => {
-  return db('education_histories').where({ client_id: id }).first;
+const getEducationHistoryById = async (id) => {
+  return db('education_histories').where({ id: id }).first;
 };
 
-const getPhoneNumbersByClientId = async (id) => {
-  return db('phone_numbers').where({ client_id: id }).first;
+const getPhoneNumbersById = async (id) => {
+  return db('phone_numbers').where({ id: id }).first;
 };
 
-const getEmailByClientId = async (id) => {
-  return db('email_addresses').where({ client_id: id }).first;
+const getEmailById = async (id) => {
+  return db('email_addresses').where({ id: id }).first;
 };
+
+//Start of Insurance Model
+const getMedicareById = async (id) => {
+  return db('medicare_number').where({ id: id}).first;
+}
+
+const getMedicareDateById = async (id) => {
+  return db('medicare_effective_date').where({ id: id}).first;
+}
+
+const getMedicaidNumberById = async (id) => {
+  return db('medicaid_number').where({ id: id}).first;
+}
+
+const getMedicaidDateById = async (id) => {
+  return db('medicaid_effective_date').where({ id: id}).first;
+}
+
+const getMedicaidExpDateById = async (id) => {
+  return db('medicaid_expiration_date').where({ id: id}).first;
+}
+
+const getPrivateInsuranceCompanyById = async (id) => {
+  return db('private_insurance_company').where({ id: id}).first;
+}
+
+const getPrivateInsuranceGroupNumberById = async (id) => {
+  return db('private_insurance_group_number').where({ id: id}).first;
+}
+
+const getPrivateInsuranceSubscriberNumberById = async (id) => {
+  return db('private_insurance_subscriber_number').where({ id: id}).first;
+}
+
+const getPrivateInsuranceEffectiveDateById = async (id) => {
+  return db('private_insurance_effective_date').where({ id: id}).first;
+}
+
+const getPrivateInsuranceExpDateById = async (id) => {
+  return db('private_insurance_expiration_date').where({ id: id}).first;
+}
+
+const getOtherCoverageById = async (id) => {
+  return db('other_coverage').where({ id: id}).first;
+}
+
+const getOtherAgenciesById = async (id) => {
+  return db('other_agencies').where({ id: id }).first;
+}
+
+//End of insurance model
 
 module.exports = {
   add,
@@ -110,13 +167,26 @@ module.exports = {
   insert,
   notesUpdate,
   updateDelete,
-  updatePhoneNumbersByClientId,
-  updateEmailByClientId,
-  updateEducationHistoryByClientId,
-  getGenderIdByClientId,
-  getRaceIdByClientId,
-  getEthnicityByClientId,
-  getEducationHistoryByClientId,
-  getPhoneNumbersByClientId,
-  getEmailByClientId,
+  updatePhoneNumbersById,
+  updateEmailById,
+  updateEducationHistoryById,
+  updateInsuranceById,
+  getGenderIdById,
+  getRaceIdById,
+  getEthnicityById,
+  getEducationHistoryById,
+  getPhoneNumbersById,
+  getEmailById,
+  getMedicareById,
+  getMedicareDateById,
+  getMedicaidNumberById,
+  getMedicaidDateById,
+  getMedicaidExpDateById,
+  getPrivateInsuranceCompanyById,
+  getPrivateInsuranceGroupNumberById,
+  getPrivateInsuranceSubscriberNumberById,
+  getPrivateInsuranceEffectiveDateById,
+  getPrivateInsuranceExpDateById,
+  getOtherCoverageById,
+  getOtherAgenciesById,
 };
